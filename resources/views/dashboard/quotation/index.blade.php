@@ -7,7 +7,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="mb-4 text-start">
-                                <a href="{{ route('product.create') }}" class="btn btn-primary btn-sm">Add Quotation</a>
+                                <a href="{{ route('quotation.create') }}" class="btn btn-primary btn-sm">Add Quotation</a>
                             </div>
                             <livewire:all-quotations />
                         </div>

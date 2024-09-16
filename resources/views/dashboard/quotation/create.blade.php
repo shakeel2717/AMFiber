@@ -2,7 +2,7 @@
 @section('content')
     <div class="row items-push">
         <div class="col-md-12">
-            <a href="{{ route('product.index') }}" class="btn btn-primary btn-sm">Go Back</a>
+            <a href="{{ route('quotation.index') }}" class="btn btn-primary btn-sm">Go Back</a>
         </div>
         <div class="col-md-6 mx-auto">
             <div class="card">

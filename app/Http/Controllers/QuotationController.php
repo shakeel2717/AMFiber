@@ -34,9 +34,10 @@ class QuotationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Quotation $quotation)
+    public function show($id)
     {
-        //
+        $quotation = Quotation::with('quotation_products', 'party')->findOrFail($id);
+        return view('dashboard.quotation.show', compact('quotation'));
     }
 
     /**
