@@ -16,3 +16,13 @@
     swal("oops!", "{!! session('error') !!}", "error");
 </script>
 @endif
+<script>
+    document.addEventListener('success', event => {
+        swal("Success!", event.detail.status, "success");
+    })
+</script>
+<script>
+    document.addEventListener('error', event => {
+        swal("Error!", event.detail.status, "error");
+    });
+</script>

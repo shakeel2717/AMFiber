@@ -19,6 +19,41 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt("asdfasdf")
         ]);
 
+        \App\Models\Party::factory()->create([
+            'name' => 'Customer Account 1',
+            'phone' => '1234567890',
+            'address' => 'AMFiber House, Sector 63, Noida, UP',
+            'type' => 'customer',
+        ]);
+
+        \App\Models\Party::factory()->create([
+            'name' => 'Customer Account 2',
+            'phone' => '1234567890',
+            'address' => 'AMFiber House, Sector 63, Noida, UP',
+            'type' => 'customer',
+        ]);
+
+        \App\Models\Party::factory()->create([
+            'name' => 'Customer Account 3',
+            'phone' => '1234567890',
+            'address' => 'AMFiber House, Sector 63, Noida, UP',
+            'type' => 'customer',
+        ]);
+
+        \App\Models\Party::factory()->create([
+            'name' => 'Vendor Account 1',
+            'phone' => '1234567890',
+            'address' => 'AMFiber House, Sector 63, Noida, UP',
+            'type' => 'vendor',
+        ]);
+
+        \App\Models\Party::factory()->create([
+            'name' => 'Vendor Account 2',
+            'phone' => '1234567890',
+            'address' => 'AMFiber House, Sector 63, Noida, UP',
+            'type' => 'vendor',
+        ]);
+
         for ($i = 1; $i < 38; $i++) {
 
 
@@ -28,7 +63,7 @@ class DatabaseSeeder extends Seeder
 
             \App\Models\Product::factory()->create([
                 'name' => 'AM-' . $i,
-                'price' => Arr::random([10, 20, 30, 40, 50]),
+                'price' => Arr::random([100, 200, 300, 400, 500]),
                 'description' => 'Product Description for AM-' . $i,
                 'image' => $i . '.jpg',
             ]);
