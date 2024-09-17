@@ -36,7 +36,7 @@ class QuotationController extends Controller
      */
     public function show($id)
     {
-        $quotation = Quotation::with('quotation_products', 'party')->findOrFail($id);
+        $quotation = Quotation::with('quotation_items', 'party')->findOrFail($id);
         return view('dashboard.quotation.show', compact('quotation'));
     }
 

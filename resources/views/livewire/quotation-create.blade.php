@@ -3,8 +3,7 @@
         @csrf
         <div class="form-group">
             <label for="customer_id">Select Customer</label>
-            <select wire:model="selectedCustomer" name="customer_id" id="customer_id" class="form-control"
-                wire:key="select-customer-{{ now() }}">
+            <select wire:model="selectedCustomer" name="customer_id" id="customer_id" class="form-control">
                 <option value="">Select a Customer</option>
                 @foreach ($customers as $customer)
                     <option value="{{ $customer->id }}">{{ $customer->name }}</option>
@@ -12,64 +11,89 @@
             </select>
         </div>
 
-        <div class="form-group">
-            <label for="product_id">Select Product</label>
-            <div class="input-group">
-                <select wire:model="selectedProduct" id="product_id" class="form-control"
-                    wire:key="select-product-{{ now() }}">
-                    <option value="">Select a Product</option>
-                    @foreach ($products as $product)
-                        <option value="{{ $product->id }}">{{ $product->name }} - ${{ $product->price }}</option>
-                    @endforeach
-                </select>
-
-                <input type="number" min="1" wire:model="productQty" class="form-control ml-2" placeholder="Qty"
-                    style="width: 80px;">
-                <input type="number" min="0" wire:model="width" class="form-control ml-2"
-                    placeholder="Width (ft)" style="width: 80px;">
-                <input type="number" min="0" wire:model="height" class="form-control ml-2"
-                    placeholder="Height (ft)" style="width: 80px;">
-
-                <div class="input-group-append">
-                    <button type="button" wire:click="addProduct" class="btn btn-primary">Add</button>
+        <fieldset class="border p-2 rounded">
+            <legend>Item Details:</legend>
+            <div class="form-group">
+                <label>Width and Height</label>
+                <div class="input-group">
+                    <input type="text" name="width" id="width" wire:model.live="width" class="form-control"
+                        placeholder="Enter Width">
+                    <input type="text" name="height" id="height" wire:model.live="height" class="form-control"
+                        placeholder="Enter height">
                 </div>
             </div>
+            <div class="form-group">
+                <label for="specification">Specification</label>
+                <input type="text" wire:model.live="specification" name="specification" id="specification"
+                    class="form-control" placeholder="Enter Specifications">
+            </div>
+            <div class="form-group">
+                <label for="truss">Truss Pipe</label>
+                <input type="text" wire:model.live="truss" name="truss" id="truss" class="form-control"
+                    placeholder="Enter Truss Pipe">
+            </div>
+            <div class="form-group">
+                <label for="shed">Shed Pipe</label>
+                <input type="text" wire:model.live="shed" name="shed" id="shed" class="form-control"
+                    placeholder="Enter Shed Pipe">
+            </div>
+            <div class="form-group">
+                <label for="piller">Pillar Pipe</label>
+                <input type="text" wire:model.live="piller" name="piller" id="piller" class="form-control"
+                    placeholder="Enter Pillar Pipe">
+            </div>
+            <div class="form-group">
+                <label for="thickness">Thickness (mm)</label>
+                <input type="text" wire:model.live="thickness" name="thickness" id="thickness" class="form-control"
+                    placeholder="Enter Thickness">
+            </div>
+            <div class="form-group">
+                <label for="price">Price per Square Foot</label>
+                <input type="text" wire:model.live="price" name="price" id="price" class="form-control"
+                    placeholder="Enter Price">
+            </div>
+            <div class="input-group">
+                <div class="input-group-append">
+                    <button type="button" wire:click="addItem" class="btn btn-primary">Add Item</button>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="table-responsive mt-3">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Size</th>
+                        <th>Specification</th>
+                        <th>Truss Pipe</th>
+                        <th>Shed Pipe</th>
+                        <th>Pillar Pipe</th>
+                        <th>Thickness</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($selectedItems as $item)
+                        <tr>
+                            <td>{{ $item['size'] }}</td>
+                            <td>{{ $item['specification'] }}</td>
+                            <td>{{ $item['truss'] }}</td>
+                            <td>{{ $item['shed'] }}</td>
+                            <td>{{ $item['piller'] }}</td>
+                            <td>{{ $item['thickness'] }}</td>
+                            <td>Rs {{ number_format($item['total'], 2) }}</td>
+                            <td>
+                                <button type="button" wire:click="removeItem('{{ $item['id'] }}')" class="btn btn-danger btn-sm">Remove</button>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Width</th>
-                    <th>Height</th>
-                    <th>Qty</th>
-                    <th>Price/sqft</th>
-                    <th>Total Price</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($selectedProducts as $product)
-                    <tr>
-                        <td>{{ $product['name'] }}</td>
-                        <td>{{ $product['width'] }}</td>
-                        <td>{{ $product['height'] }}</td>
-                        <td>
-                            <input type="number" min="1" class="form-control"
-                                wire:model="quantities.{{ $product['id'] }}"
-                                wire:change="updateProduct({{ $product['id'] }})">
-                        </td>
-                        <td>Rs:{{ $product['price'] }}</td>
-                        <td>Rs:{{ $product['total'] }}</td>
-                        <td><button type="button" wire:click="removeProduct({{ $product['id'] }})"
-                                class="btn btn-danger btn-sm">Remove</button></td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-
         <div class="form-group">
-            <h4>Total: Rs:{{ $totalAmount }}</h4>
+            <h4>Total Amount: Rs {{ number_format($totalAmount, 2) }}</h4>
         </div>
 
         <button type="button" wire:click="createQuotation" class="btn btn-primary">Save Quotation</button>

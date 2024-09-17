@@ -1,112 +1,118 @@
 <?php
-
 namespace App\Livewire;
 
-use Livewire\Component;
-use App\Models\Product;
 use App\Models\Party;
+use App\Models\Quotation;
+use App\Models\QuotationItem;
+use Livewire\Component;
 
 class QuotationCreate extends Component
 {
-    public $customers;
-    public $products;
-    public $selectedCustomer;
-    public $selectedProduct;
-    public $productQty = 1;
-    public $width = 0;
-    public $height = 0;
+    public $width;
+    public $height;
+    public $specification;
+    public $truss;
+    public $shed;
+    public $piller;
+    public $thickness;
+    public $price;
 
-    public $selectedProducts = [];
-    public $quantities = [];
+    public $selectedItems = [];
+    public $customers = [];
+    public $selectedCustomer = null;
     public $totalAmount = 0;
 
     public function mount()
     {
-        $this->customers = \App\Models\Party::where('type', 'customer')->get();
-        $this->products = \App\Models\Product::get();
+        $this->customers = Party::where('type', 'customer')->get();
     }
 
-    public function addProduct()
+    public function addItem()
     {
-        if ($this->selectedProduct && $this->width > 0 && $this->height > 0) {
-            $product = $this->products->find($this->selectedProduct);
-
-            // Calculate square footage
+        if ($this->width && $this->height && $this->price) {
             $squareFeet = $this->width * $this->height;
+            $total = $this->price * $squareFeet;
 
-            // Calculate total price (sqft * price * qty)
-            $totalPrice = $squareFeet * $product->price * $this->productQty;
-
-            $this->selectedProducts[] = [
-                'id' => $product->id,
-                'name' => $product->name,
+            $this->selectedItems[] = [
+                'id' => uniqid(),
                 'width' => $this->width,
                 'height' => $this->height,
-                'qty' => $this->productQty,
-                'price' => $product->price,
-                'total' => $totalPrice,
+                'size' => $this->width . 'x' . $this->height,
+                'specification' => $this->specification,
+                'truss' => $this->truss,
+                'shed' => $this->shed,
+                'piller' => $this->piller,
+                'thickness' => $this->thickness,
+                'price' => $this->price,
+                'total' => $total,
             ];
 
-            // Store quantities
-            $this->quantities[$product->id] = $this->productQty;
+            // Reset input fields after adding item
+            $this->resetInputFields();
 
-            // Reset inputs
-            $this->productQty = 1;
-            $this->width = 0;
-            $this->height = 0;
-            $this->selectedProduct = null;
-
-            // Update total amount
+            // Recalculate total
             $this->calculateTotal();
         }
     }
 
-    public function removeProduct($productId)
+    public function removeItem($id)
     {
-        $this->selectedProducts = array_filter($this->selectedProducts, function ($product) use ($productId) {
-            return $product['id'] !== $productId;
+        // Find item by unique ID and remove it
+        $this->selectedItems = array_filter($this->selectedItems, function ($item) use ($id) {
+            return $item['id'] !== $id;
         });
 
-        $this->calculateTotal();
-    }
-
-    public function updateProduct($productId)
-    {
-        foreach ($this->selectedProducts as &$product) {
-            if ($product['id'] == $productId) {
-                $squareFeet = $product['width'] * $product['height'];
-                $product['total'] = $squareFeet * $product['price'] * $this->quantities[$productId];
-            }
-        }
-
+        // Recalculate total
         $this->calculateTotal();
     }
 
     public function calculateTotal()
     {
-        $this->totalAmount = array_sum(array_column($this->selectedProducts, 'total'));
+        // Calculate total of all selected items
+        $this->totalAmount = array_sum(array_column($this->selectedItems, 'total'));
+    }
+
+    public function resetInputFields()
+    {
+        // Clear all input fields
+        $this->width = null;
+        $this->height = null;
+        $this->specification = null;
+        $this->truss = null;
+        $this->shed = null;
+        $this->piller = null;
+        $this->thickness = null;
+        $this->price = null;
     }
 
     public function createQuotation()
     {
-        $this->calculateTotal();
+        $quotation = new Quotation();
+        $quotation->customer_id = $this->selectedCustomer;
+        $quotation->total_amount = $this->totalAmount;
+        $quotation->save();
 
-        $quotation = \App\Models\Quotation::create([
-            'customer_id' => $this->selectedCustomer,
-            'total_amount' => $this->totalAmount,
-        ]);
+        foreach ($this->selectedItems as $item) {
+            if (!isset($item['id'])) {
+                $this->dispatch('error', 'Please add item first!');
+                return;
+            }
 
-        foreach ($this->selectedProducts as $product) {
-            \App\Models\QuotationProduct::create([
-                'quotation_id' => $quotation->id,
-                'product_id' => $product['id'],
-                'width' => $product['width'],
-                'height' => $product['height'],
-                'qty' => $product['qty'],
-                'price' => $product['price'],
-                'total' => $product['total'],
-            ]);
+            $quotationItem = new QuotationItem();
+            $quotationItem->quotation_id = $quotation->id;
+            $quotationItem->width = $item['width'];
+            $quotationItem->height = $item['height'];
+            $quotationItem->specification = $item['specification'];
+            $quotationItem->truss = $item['truss'];
+            $quotationItem->shed = $item['shed'];
+            $quotationItem->piller = $item['piller'];
+            $quotationItem->thickness = $item['thickness'];
+            $quotationItem->price = $item['price'];
+            $quotationItem->total = $item['total'];
+            $quotationItem->save();
         }
+
+        $this->resetInputFields();
 
         $this->dispatch('success', status: 'Quotation created successfully!');
     }

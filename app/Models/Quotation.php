@@ -11,7 +11,15 @@ class Quotation extends Model
 
     protected $fillable = [
         'customer_id',
-        'total_amount',
+        'width',
+        'height',
+        'specification',
+        'truss',
+        'shed',
+        'piller',
+        'thickness',
+        'price',
+        'total_amount'
     ];
 
 
@@ -20,8 +28,8 @@ class Quotation extends Model
         return $this->belongsTo(Party::class, 'customer_id', 'id');
     }
 
-    public function quotation_products()
+    public function quotation_items()
     {
-        return $this->hasMany(QuotationProduct::class);
+        return $this->hasMany(QuotationItem::class);
     }
 }

@@ -55,7 +55,7 @@ final class AllQuotations extends PowerGridComponent
             ->addColumn('id')
             ->addColumn('customer', fn(Quotation $model) => $model->party->name)
             ->addColumn('total_amount')
-            ->addColumn('products', fn(Quotation $model) => $model->quotation_products->count())
+            ->addColumn('products', fn(Quotation $model) => $model->quotation_items->count())
             ->addColumn('created_at_formatted', fn(Quotation $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 

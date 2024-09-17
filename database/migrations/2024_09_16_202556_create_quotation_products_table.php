@@ -10,15 +10,18 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('quotation_products', function (Blueprint $table) {
+        Schema::create('quotation_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('quotation_id')->constrained('quotations')->onDelete('cascade');
-            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
-            $table->double('width')->nullable();
-            $table->double('height')->nullable();
-            $table->integer('quantity')->default(1);
-            $table->double('price');
-            $table->double('total');
+            $table->string('width');
+            $table->string('height');
+            $table->string('specification')->nullable();
+            $table->string('truss')->nullable();
+            $table->string('shed')->nullable();
+            $table->string('piller')->nullable();
+            $table->string('thickness')->nullable();
+            $table->string('price');
+            $table->string('total');
             $table->timestamps();
         });
     }

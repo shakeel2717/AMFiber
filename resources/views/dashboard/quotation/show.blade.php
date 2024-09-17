@@ -15,7 +15,8 @@
         }
 
         .container {
-            max-width: 700px;
+            max-width: 900px;
+            /* Increased width to suit landscape */
             margin: 20px auto;
             padding: 20px;
             border: 1px solid #ddd;
@@ -29,7 +30,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .header img {
@@ -46,7 +47,7 @@
         .details,
         .products,
         .card {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .details table,
@@ -103,25 +104,57 @@
         }
 
         .highlighted-card .card {
-            width: 200px;
-            padding: 0 15px;
+            min-width: 250px;
+            padding: 0 10px;
         }
 
         /* Footer */
         .footer {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
         /* Print Styles */
         @media print {
+            @page {
+                size: A4 landscape;
+                /* Set the page to landscape */
+                margin: 10mm;
+                /* Adjust margins as needed */
+            }
+
             .container {
-                width: 100%;
+                max-width: 100%;
+                /* Use full width in print */
                 margin: 0;
                 padding: 0;
                 border: none;
                 box-shadow: none;
             }
+
+            /* Hide any elements not needed in print */
+            .header img {
+                display: none;
+            }
+
+            .footer {
+                margin-top: 10mm;
+            }
+
+            .card-content p {
+                font-size: 12px;
+                /* Adjust font size for print */
+            }
+
+            table {
+                font-size: 12px;
+                /* Ensure table fits within landscape layout */
+            }
+
+        }
+
+        .note-text {
+            font-size: 12px;
         }
     </style>
 </head>
@@ -130,7 +163,10 @@
     <div class="container">
         <div class="header">
             <h1 class="text-primary">{{ config('app.name') }}</h1>
-            <h1>Quotation</h1>
+            <div class="labelandtime">
+                <h1>Quotation</h1>
+                <h5>Date: {{ $quotation->created_at->format('d-m-Y') }}</h5>
+            </div>
         </div>
 
         <div class="details">
@@ -151,10 +187,6 @@
                     <th>Quotation Number:</th>
                     <td>{{ $quotation->id }}</td>
                 </tr>
-                <tr>
-                    <th>Total Amount:</th>
-                    <td>Rs: {{ number_format($quotation->total_amount, 2) }}</td>
-                </tr>
             </table>
         </div>
 
@@ -162,23 +194,27 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Product</th>
-                        <th>Width</th>
-                        <th>Height</th>
-                        <th>Quantity</th>
-                        <th>Price per Unit</th>
+                        <th>Size</th>
+                        <th>Spesification</th>
+                        <th>Truss Pipe</th>
+                        <th>Shed Pipe</th>
+                        <th>Piller Pipe</th>
+                        <th>Thickness in mm</th>
+                        <th>Price</th>
                         <th>Total</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($quotation->quotation_products as $product)
+                    @foreach ($quotation->quotation_items as $item)
                         <tr>
-                            <td>{{ $product->product->name }}</td>
-                            <td>{{ $product->width }}</td>
-                            <td>{{ $product->height }}</td>
-                            <td>{{ $product->quantity }}</td>
-                            <td>Rs: {{ number_format($product->price, 2) }}</td>
-                            <td>Rs: {{ number_format($product->total, 2) }}</td>
+                            <td>{{ $item->width }}x{{ $item->height }}</td>
+                            <td>{{ $item->specification }}</td>
+                            <td>{{ $item->truss }}</td>
+                            <td>{{ $item->shed }}</td>
+                            <td>{{ $item->piller }}</td>
+                            <td>{{ $item->thickness }}</td>
+                            <td>Rs: {{ number_format($item->price, 2) }}</td>
+                            <td>Rs: {{ number_format($quotation->total_amount, 2) }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -188,8 +224,7 @@
         <div class="highlighted-card">
             <div class="card">
                 <div class="card-content">
-                    <p class="">Total Due Amount: </p>
-                    <h3 class="">
+                    <h3 class="">Total Amount:  
                         Rs: {{ number_format($quotation->total_amount - $quotation->paid_amount, 2) }}
                     </h3>
                 </div>
@@ -200,19 +235,13 @@
             <div class="card-title">Terms and Conditions</div>
             <div class="card-content">
                 <p>1. All quotations are valid for 30 days from the date of issue.</p>
-                <p>2. Payment terms are 50% advance and 50% upon completion.</p>
-                <p>3. Any changes to the quotation must be made in writing.</p>
-                <p>4. The company is not responsible for any delays caused by external factors.</p>
-                <!-- Add more terms as needed -->
             </div>
         </div>
-
         <div class="card">
             <div class="card-title">Note</div>
-            <div class="card-content">
-                <p>Please review the quotation carefully. If you have any questions or need further clarification, feel
-                    free to contact us.</p>
-            </div>
+            <p class="note-text">Please review the quotation carefully. If you have any questions or need further
+                clarification, feel
+                free to contact us.</p>
         </div>
 
         <div class="footer">
