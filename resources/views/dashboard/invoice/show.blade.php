@@ -72,7 +72,7 @@
         <div class="card">
             <div class="card-content">
                 <h3 class="">Balance:
-                    Rs: {{ number_format($invoice->total_amount - $invoice->paid_amount, 2) }}
+                    Rs: {{ number_format($invoice->party->balance(), 2) }}
                 </h3>
             </div>
         </div>

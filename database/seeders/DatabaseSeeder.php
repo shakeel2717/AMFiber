@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\Party::factory()->create([
-            'name' => 'Customer Account 1',
+            'name' => 'Asan Webs',
             'phone' => '1234567890',
             'address' => 'AMFiber House, Sector 63, Noida, UP',
             'type' => 'customer',
