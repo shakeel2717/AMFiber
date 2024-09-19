@@ -121,6 +121,19 @@
                                 <span class="nav-main-link-name">Add new Invoices</span>
                             </a>
                         </li>
+                        <li class="nav-main-heading">Payment Management</li>
+                        <li class="nav-main-item">
+                            <a class="nav-main-link " href="{{ route('payment.index') }}">
+                                <i class="nav-main-link-icon fa fa-location-arrow"></i>
+                                <span class="nav-main-link-name">All Payments</span>
+                            </a>
+                        </li>
+                        <li class="nav-main-item">
+                            <a class="nav-main-link " href="{{ route('payment.create') }}">
+                                <i class="nav-main-link-icon fa fa-location-arrow"></i>
+                                <span class="nav-main-link-name">Add new Payments</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -7,9 +7,9 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="mb-4 text-start">
-                                <a href="{{ route('payment.create') }}" class="btn btn-primary btn-sm">Add a Payment</a>
+                                <a href="{{ route('payment.create') }}" class="btn btn-primary btn-sm">Add Payment</a>
                             </div>
-                            <livewire:all-parties />
+                            <livewire:all-payments/>
                         </div>
                     </div>
                 </div>

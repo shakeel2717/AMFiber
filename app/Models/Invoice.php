@@ -9,7 +9,7 @@ class Invoice extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['customer_id', 'total_amount', 'discount'];
+    protected $fillable = ['customer_id', 'total_amount', 'discount', 'type'];
 
 
     public function party()
@@ -36,7 +36,7 @@ class Invoice extends Model
     public function calculateDiscount()
     {
         return $this->calculateSubtotal() * $this->discount / 100;
-        
+
     }
 
     public function calculateGrandTotal()
