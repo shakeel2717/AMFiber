@@ -69,28 +69,56 @@
                                 <span class="nav-main-link-name">Dashboard</span>
                             </a>
                         </li>
+                        <li class="nav-main-heading">Party Management</li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link active" href="{{ route('party.index') }}">
+                            <a class="nav-main-link " href="{{ route('party.index') }}">
                                 <i class="nav-main-link-icon fa fa-location-arrow"></i>
                                 <span class="nav-main-link-name">Manage Party</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link active" href="{{ route('product.index') }}">
+                            <a class="nav-main-link " href="{{ route('party.index') }}">
+                                <i class="nav-main-link-icon fa fa-location-arrow"></i>
+                                <span class="nav-main-link-name">Add new Party</span>
+                            </a>
+                        </li>
+                        <li class="nav-main-heading">Product Management</li>
+                        <li class="nav-main-item">
+                            <a class="nav-main-link " href="{{ route('product.index') }}">
                                 <i class="nav-main-link-icon fa fa-location-arrow"></i>
                                 <span class="nav-main-link-name">All Products</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link active" href="{{ route('quotation.index') }}">
+                            <a class="nav-main-link " href="{{ route('product.create') }}">
+                                <i class="nav-main-link-icon fa fa-location-arrow"></i>
+                                <span class="nav-main-link-name">Add new Product</span>
+                            </a>
+                        </li>
+                        <li class="nav-main-heading">Quotation Management</li>
+                        <li class="nav-main-item">
+                            <a class="nav-main-link " href="{{ route('quotation.index') }}">
                                 <i class="nav-main-link-icon fa fa-location-arrow"></i>
                                 <span class="nav-main-link-name">All Quotation</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link active" href="{{ route('invoice.index') }}">
+                            <a class="nav-main-link " href="{{ route('quotation.create') }}">
+                                <i class="nav-main-link-icon fa fa-location-arrow"></i>
+                                <span class="nav-main-link-name">Add new Quotation</span>
+                            </a>
+                        </li>
+                        <li class="nav-main-heading">Invoice Management</li>
+                        <li class="nav-main-item">
+                            <a class="nav-main-link " href="{{ route('invoice.index') }}">
                                 <i class="nav-main-link-icon fa fa-location-arrow"></i>
                                 <span class="nav-main-link-name">All Invoices</span>
+                            </a>
+                        </li>
+                        <li class="nav-main-item">
+                            <a class="nav-main-link " href="{{ route('invoice.create') }}">
+                                <i class="nav-main-link-icon fa fa-location-arrow"></i>
+                                <span class="nav-main-link-name">Add new Invoices</span>
                             </a>
                         </li>
                     </ul>
