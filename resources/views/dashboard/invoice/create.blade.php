@@ -2,12 +2,12 @@
 @section('content')
     <div class="row items-push">
         <div class="col-md-12">
-            <a href="{{ route('quotation.index') }}" class="btn btn-primary btn-sm">Go Back</a>
+            <a href="{{ route('invoice.index') }}" class="btn btn-primary btn-sm">Go Back</a>
         </div>
-        <div class="col-md-6 mx-auto">
+        <div class="col-md-8 mx-auto">
             <div class="card">
                 <div class="card-body">
-                    @livewire('quotation-create')
+                    @livewire('invoice-create')
                 </div>
             </div>
         </div>

@@ -20,6 +20,10 @@ class InvoiceCreate extends Component
     public $quantities = [];
     public $totalAmount = 0;
 
+    public $discount = 0;
+    public $discounted_amount;
+    public $without_discounted_amount;
+
     public function mount()
     {
         $this->customers = \App\Models\Party::where('type', 'customer')->get();
@@ -52,8 +56,8 @@ class InvoiceCreate extends Component
 
             // Reset inputs
             $this->productQty = 1;
-            $this->width = 0;
-            $this->height = 0;
+            $this->width = null;
+            $this->height = null;
             $this->selectedProduct = null;
 
             // Update total amount
@@ -84,31 +88,39 @@ class InvoiceCreate extends Component
 
     public function calculateTotal()
     {
-        $this->totalAmount = array_sum(array_column($this->selectedProducts, 'total'));
+        $total = $this->totalAmount = array_sum(array_column($this->selectedProducts, 'total'));
+        $this->without_discounted_amount = $total;
+        if ($this->discount > 0) {
+            $this->discounted_amount = $total * $this->discount / 100;
+            $this->totalAmount = $this->totalAmount - $this->discounted_amount;
+
+        } else {
+            $this->totalAmount = array_sum(array_column($this->selectedProducts, 'total'));
+        }
     }
 
-    public function createQuotation()
+    public function createInvoice()
     {
         $this->calculateTotal();
 
-        $quotation = \App\Models\Quotation::create([
+        $invoice = \App\Models\Invoice::create([
             'customer_id' => $this->selectedCustomer,
             'total_amount' => $this->totalAmount,
+            'discount' => $this->discount,
         ]);
 
         foreach ($this->selectedProducts as $product) {
-            \App\Models\QuotationProduct::create([
-                'quotation_id' => $quotation->id,
+            \App\Models\InvoiceProduct::create([
                 'product_id' => $product['id'],
+                'invoice_id' => $invoice->id,
                 'width' => $product['width'],
                 'height' => $product['height'],
                 'qty' => $product['qty'],
                 'price' => $product['price'],
-                'total' => $product['total'],
             ]);
         }
 
-        $this->dispatch('success', status: 'Quotation created successfully!');
+        $this->dispatch('success', status: 'Invoice created successfully!');
     }
 
     public function render()
