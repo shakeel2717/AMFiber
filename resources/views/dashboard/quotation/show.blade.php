@@ -191,40 +191,56 @@
         </div>
 
         <div class="products">
-            <table>
+            <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Size</th>
-                        <th>Spesification</th>
-                        <th>Truss Pipe</th>
-                        <th>Shed Pipe</th>
-                        <th>Piller Pipe</th>
-                        <th>Thickness in mm</th>
-                        <th>Price</th>
-                        <th>Total</th>
+                        <th scope="col">Details</th>
+                        <th scope="col">Value</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Total</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($quotation->quotation_items as $item)
                         <tr>
-                            <td>{{ $item->width }}x{{ $item->height }}</td>
+                            <th>Size</th>
+                            <td style="text-align: right; font-weight: bold">{{ $item->width }}x{{ $item->height }}
+                            </td>
+                            <td rowspan="6" class="align-middle">Rs: {{ number_format($item->price, 2) }}</td>
+                            <td rowspan="6" class="align-middle">Rs: {{ number_format($quotation->total_amount, 2) }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Specification</th>
                             <td>{{ $item->specification }}</td>
-                            <td>{{ $item->truss }}</td>
-                            <td>{{ $item->shed }}</td>
+                        </tr>
+                        <tr>
+                            <th>Piller Pipe</th>
                             <td>{{ $item->piller }}</td>
+                        </tr>
+                        <tr>
+                            <th>Shed Pipe</th>
+                            <td>{{ $item->shed }}</td>
+                        </tr>
+                        <tr>
+                            <th>Truss Pipe</th>
+                            <td>{{ $item->truss }}</td>
+                        </tr>
+                        <tr>
+                            <th>Thickness in mm</th>
                             <td>{{ $item->thickness }}</td>
-                            <td>Rs: {{ number_format($item->price, 2) }}</td>
-                            <td>Rs: {{ number_format($quotation->total_amount, 2) }}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+
+
         </div>
 
         <div class="highlighted-card">
             <div class="card">
                 <div class="card-content">
-                    <h3 class="">Total Amount:  
+                    <h3 class="">Total Amount:
                         Rs: {{ number_format($quotation->total_amount - $quotation->paid_amount, 2) }}
                     </h3>
                 </div>
