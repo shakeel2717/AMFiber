@@ -20,6 +20,10 @@ final class AllProduct extends PowerGridComponent
 {
     use WithExport;
 
+    public $name;
+    public $description;
+    public $price;
+
     public function setUp(): array
     {
         // $this->showCheckBox();
@@ -68,18 +72,19 @@ final class AllProduct extends PowerGridComponent
             // Column::make('Id', 'id'),
             Column::make('Name', 'name')
                 ->sortable()
+                ->editOnClick()
                 ->searchable(),
 
             Column::make('Description', 'description')
                 ->sortable()
+                ->editOnClick()
                 ->searchable(),
 
-            Column::make('Image', 'image_url')
-                ->sortable()
-                ->searchable(),
+            Column::make('Image', 'image_url'),
 
             Column::make('Price', 'price')
                 ->sortable()
+                ->editOnClick()
                 ->searchable(),
 
             Column::make('Created at', 'created_at')
@@ -98,6 +103,13 @@ final class AllProduct extends PowerGridComponent
             Filter::inputText('price')->operators(['contains']),
             Filter::datetimepicker('created_at'),
         ];
+    }
+
+    public function onUpdatedEditable(string|int $id, string $field, string $value): void
+    {
+        Product::query()->find($id)->update([
+            $field => e($value),
+        ]);
     }
 
     // #[\Livewire\Attributes\On('edit')]

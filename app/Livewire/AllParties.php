@@ -20,6 +20,10 @@ final class AllParties extends PowerGridComponent
 {
     use WithExport;
 
+    public $name;
+    public $phone;
+    public $address;
+
     public function setUp(): array
     {
         // $this->showCheckBox();
@@ -52,7 +56,7 @@ final class AllParties extends PowerGridComponent
             ->addColumn('name')
 
             /** Example of custom column using a closure **/
-            ->addColumn('name_lower', fn(Party $model) => strtolower(e($model->name)))
+            ->addColumn('balance', fn(Party $model) => number_format($model->balance(), 2))
 
             ->addColumn('phone')
             ->addColumn('address')
@@ -69,12 +73,16 @@ final class AllParties extends PowerGridComponent
                 ->editOnClick()
                 ->searchable(),
 
+            Column::make('Balance', 'balance'),
+
             Column::make('Phone', 'phone')
                 ->sortable()
+                ->editOnClick()
                 ->searchable(),
 
             Column::make('Address', 'address')
                 ->sortable()
+                ->editOnClick()
                 ->searchable(),
 
             Column::make('Type', 'type')
@@ -97,6 +105,13 @@ final class AllParties extends PowerGridComponent
             Filter::inputText('type')->operators(['contains']),
             Filter::datetimepicker('created_at'),
         ];
+    }
+
+    public function onUpdatedEditable(string|int $id, string $field, string $value): void
+    {
+        Party::query()->find($id)->update([
+            $field => e($value),
+        ]);
     }
 
     // #[\Livewire\Attributes\On('edit')]
