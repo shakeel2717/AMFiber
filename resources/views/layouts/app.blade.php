@@ -197,7 +197,7 @@
                                 Notifications
                             </div>
                             <ul class="nav-items my-2">
-                                @forelse (auth()->user()->notifications() as $notification)
+                                @forelse (auth()->user()->notifications()->take(5) as $notification)
                                     <li class="px-2">
                                         <a class="" href="javascript:void(0)">
                                             <div class="d-flex">
