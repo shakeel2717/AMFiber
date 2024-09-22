@@ -1,7 +1,7 @@
 @extends('layouts.print')
 @section('content')
     <div class="header">
-        <h1 class="text-primary">{{ config('app.name') }}</h1>
+        @include('inc.logo')
         <div class="labelandtime">
             <h1>Quotation</h1>
             <h5>Date: {{ $quotation->created_at->format('d-m-Y') }}</h5>

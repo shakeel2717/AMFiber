@@ -1,7 +1,7 @@
 @extends('layouts.print')
 @section('content')
     <div class="header">
-        <h1 class="text-primary">{{ config('app.name') }}</h1>
+        @include('inc.logo')
         <div class="labelandtime">
             <h1>Invoice</h1>
             <h5>Date: {{ $invoice->created_at->format('d-m-Y') }}</h5>
@@ -33,8 +33,9 @@
         <table>
             <thead>
                 <tr>
+                    <th>Product</th>
                     <th>Description</th>
-                    <th>Dimensions (W x H)</th>
+                    
                     <th>Total SQFT</th>
                     <th>Quantity</th>
                     <th>Unit Price (per sqft)</th>
@@ -44,9 +45,18 @@
             <tbody>
                 @foreach ($invoice->invoice_products as $item)
                     <tr>
-                        <td>{{ $item->product->name }}</td>
-                        <td>{{ $item->width_in_feet . '\'.' . $item->width_in_inches }}"
-                            x{{ $item->height_in_feet . '\'.' . $item->height_in_inches }}"</td>
+                        <td>
+                            <img style="filter: grayscale(1);" src="{{ asset('products/' . $item->product->image) }}" alt="Product image" width="100"
+                                height="150">
+                        </td>
+                        <td>
+                            <b>
+                                {{ $item->product->name }} <br>
+                                <span>Dimensions (W x H) <br></span>
+                                {{ $item->width_in_feet . '\'.' . $item->width_in_inches }}"
+                                x{{ $item->height_in_feet . '\'.' . $item->height_in_inches }}"
+                            </b>
+                        </td>
                         <td>{{ number_format($item->totalSquareFeet(), 2) }}</td>
                         <td>{{ $item->qty }}</td>
                         <td>Rs: {{ number_format($item->price, 2) }}</td>

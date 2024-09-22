@@ -37,9 +37,9 @@ class InvoiceCreate extends Component
         if (
             $this->selectedProduct
             && ($this->width_in_feet > 0
-            || $this->width_in_inches > 0)
+                || $this->width_in_inches > 0)
             && ($this->height_in_feet > 0
-            || $this->height_in_inches > 0)
+                || $this->height_in_inches > 0)
         ) {
             $product = $this->products->find($this->selectedProduct);
 
@@ -139,7 +139,7 @@ class InvoiceCreate extends Component
             ]);
         }
 
-        $this->dispatch('success', status: 'Invoice created successfully!');
+        return redirect()->route('invoice.show', ['invoice' => $invoice->id])->with('success', 'Invoice created successfully!');
     }
 
     public function render()

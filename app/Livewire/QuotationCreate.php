@@ -114,7 +114,7 @@ class QuotationCreate extends Component
 
         $this->resetInputFields();
 
-        $this->dispatch('success', status: 'Quotation created successfully!');
+        return redirect()->route('quotation.show', ['quotation' => $quotation->id])->with('success', 'Quotation created successfully!');
     }
 
     public function render()

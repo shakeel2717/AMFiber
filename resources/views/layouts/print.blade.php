@@ -156,6 +156,26 @@
         .note-text {
             font-size: 12px;
         }
+
+        .d-flex {
+            display: flex !important;
+        }
+
+        .gap-2 {
+            gap: 0.5rem !important;
+        }
+
+        .justify-content-start {
+            justify-content: flex-start !important;
+        }
+
+        .align-items-center {
+            align-items: center !important;
+        }
+
+        .brand {
+            font-size: 2rem !important;
+        }
     </style>
 </head>
 

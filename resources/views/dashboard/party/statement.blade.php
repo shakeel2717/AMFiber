@@ -1,7 +1,7 @@
 @extends('layouts.print')
 @section('content')
     <div class="header">
-        <h1 class="text-primary">{{ config('app.name') }}</h1>
+        @include('inc.logo')
         <div class="labelandtime">
             <h1>Statement</h1>
             <h5>Date: {{ now()->format('d-m-Y') }}</h5>
