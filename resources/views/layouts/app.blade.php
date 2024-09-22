@@ -197,7 +197,34 @@
                                 Notifications
                             </div>
                             <ul class="nav-items my-2">
-
+                                @forelse (auth()->user()->notifications() as $notification)
+                                    <li class="px-2">
+                                        <a class="" href="javascript:void(0)">
+                                            <div class="d-flex">
+                                                <div class="flex-shrink-0">
+                                                    <i class="fa fa-fw fa-check-circle text-success"></i>
+                                                </div>
+                                                <div class="flex-grow-1 ps-3">
+                                                    <div class="fw-semibold">{{ $notification->title }}</div>
+                                                    <div>{{ $notification->created_at->diffForHumans() }}</div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                @empty
+                                    <li class="px-2">
+                                        <a class="" href="javascript:void(0)">
+                                            <div class="d-flex">
+                                                <div class="flex-shrink-0">
+                                                    <i class="fa fa-fw fa-info-circle text-secondary"></i>
+                                                </div>
+                                                <div class="flex-grow-1 ps-3">
+                                                    <div class="fw-semibold">No Notification Found</div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                @endforelse
                             </ul>
                             <div class="p-2 border-top">
                                 <a class="btn btn-alt-primary w-100 text-center" href="javascript:void(0)">

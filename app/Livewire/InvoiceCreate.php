@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Notification;
 use Livewire\Component;
 use App\Models\Product;
 use App\Models\Party;
@@ -138,6 +139,13 @@ class InvoiceCreate extends Component
                 'price' => $product['price'],
             ]);
         }
+
+        // adding notification
+        $notification = new Notification();
+        $notification->user_id = auth()->user()->id;
+        $notification->title = 'New Invoice Created';
+        $notification->body = auth()->user()->name . ' created a new invoice. the Invoice ID is ' . $invoice->id;
+        $notification->save();
 
         return redirect()->route('invoice.show', ['invoice' => $invoice->id])->with('success', 'Invoice created successfully!');
     }

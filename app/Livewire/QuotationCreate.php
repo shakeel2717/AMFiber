@@ -1,6 +1,7 @@
 <?php
 namespace App\Livewire;
 
+use App\Models\Notification;
 use App\Models\Party;
 use App\Models\Quotation;
 use App\Models\QuotationItem;
@@ -113,6 +114,13 @@ class QuotationCreate extends Component
         }
 
         $this->resetInputFields();
+
+        // adding notification
+        $notification = new Notification();
+        $notification->user_id = auth()->user()->id;
+        $notification->title = 'New Quotation Created';
+        $notification->body = auth()->user()->name . ' created a new Quotation. the Quotation ID is ' . $quotation->id;
+        $notification->save();
 
         return redirect()->route('quotation.show', ['quotation' => $quotation->id])->with('success', 'Quotation created successfully!');
     }

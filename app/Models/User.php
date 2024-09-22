@@ -42,4 +42,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    public function notifications()
+    {
+        $notification = Notification::latest()->get();
+        return $notification;
+    }
 }
