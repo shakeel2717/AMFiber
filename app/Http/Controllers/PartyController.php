@@ -7,6 +7,8 @@ use App\Models\Party;
 use App\Models\Payment;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\LaravelPdf\Facades\Pdf;
+use Spatie\LaravelPdf\Enums\Format;
 
 class PartyController extends Controller
 {
@@ -51,8 +53,7 @@ class PartyController extends Controller
         //
     }
 
-
-    public function statement($id)
+    public function fetchStatementData($id): array
     {
         // Fetch customer/vendor details
         $party = Party::findOrFail($id);
@@ -80,15 +81,31 @@ class PartyController extends Controller
             ];
         }))->sortBy('created_at');
 
-        return view('dashboard.party.statement', compact('party', 'transactions'));
+        return [
+            'party' => $party,
+            'transactions' => $transactions
+        ];
+    }
+
+
+    public function statement($id)
+    {
+
+        $data = $this->fetchStatementData($id);
+        return view('dashboard.party.statement', $data);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Party $party)
     {
-        //
+        $data = $this->fetchStatementData($party->id);
+        $pdf = Pdf::view('dashboard.party.statement', $data)
+            ->format(Format::A4)
+            ->name($party->name . '_party-' . $party->id . '.pdf');
+
+        return $pdf->download();
     }
 
     /**

@@ -102,10 +102,15 @@ final class AllQuotations extends PowerGridComponent
                 ->class('btn btn-primary btn-danger btn-sm')
                 ->dispatch('delete', ['rowId' => $row->id]),
 
-            Button::add('print')
-                ->slot('Print')
+            Button::add('view')
+                ->slot('View')
                 ->class('btn btn-primary btn-sm')
                 ->route('quotation.show', ['quotation' => $row->id]),
+
+            Button::add('download')
+                ->slot('Download')
+                ->class('btn btn-primary btn-sm')
+                ->route('quotation.edit', ['quotation' => $row->id])
         ];
     }
 

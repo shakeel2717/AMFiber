@@ -104,10 +104,15 @@ final class AllInvoice extends PowerGridComponent
                 ->class('btn btn-danger btn-sm')
                 ->dispatch('delete', ['rowId' => $row->id]),
 
-            Button::add('print')
-                ->slot('Print')
+            Button::add('view')
+                ->slot('View')
                 ->class('btn btn-primary btn-sm')
-                ->route('invoice.show', ['invoice' => $row->id])
+                ->route('invoice.show', ['invoice' => $row->id]),
+
+            Button::add('download')
+                ->slot('Download')
+                ->class('btn btn-primary btn-sm')
+                ->route('invoice.edit', ['invoice' => $row->id])
         ];
     }
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Quotation;
 use Illuminate\Http\Request;
+use Spatie\LaravelPdf\Facades\Pdf;
+use Spatie\LaravelPdf\Enums\Format;
 
 class QuotationController extends Controller
 {
@@ -45,7 +47,11 @@ class QuotationController extends Controller
      */
     public function edit(Quotation $quotation)
     {
-        //
+        $pdf = Pdf::view('dashboard.quotation.show', ['quotation' => $quotation])
+            ->format(Format::A4)
+            ->name($quotation->party->name . '_quotation-' . $quotation->id . '.pdf');
+
+        return $pdf->download();
     }
 
     /**
