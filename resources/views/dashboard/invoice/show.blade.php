@@ -35,6 +35,7 @@
                 <tr>
                     <th>Description</th>
                     <th>Dimensions (W x H)</th>
+                    <th>Total SQFT</th>
                     <th>Quantity</th>
                     <th>Unit Price (per sqft)</th>
                     <th>Line Total</th>
@@ -44,23 +45,25 @@
                 @foreach ($invoice->invoice_products as $item)
                     <tr>
                         <td>{{ $item->product->name }}</td>
-                        <td>{{ $item->width }}x{{ $item->height }}</td>
+                        <td>{{ $item->width_in_feet . '\'.' . $item->width_in_inches }}"
+                            x{{ $item->height_in_feet . '\'.' . $item->height_in_inches }}"</td>
+                        <td>{{ number_format($item->totalSquareFeet(), 2) }}</td>
                         <td>{{ $item->qty }}</td>
                         <td>Rs: {{ number_format($item->price, 2) }}</td>
-                        <td>Rs: {{ number_format($item->width * $item->height * $item->price * $item->qty, 2) }}
+                        <td>Rs: {{ number_format($item->totalSquareFeet() * $item->price * $item->qty, 2) }}
                         </td>
                     </tr>
                 @endforeach
                 <tr>
-                    <th style="text-align: right" colspan="4">Subtotal</th>
+                    <th style="text-align: right" colspan="5">Subtotal</th>
                     <th>Rs: {{ number_format($invoice->calculateSubtotal(), 2) }}</th>
                 </tr>
                 <tr>
-                    <th style="text-align: right" colspan="4">Discount ({{ $invoice->discount }}%)</th>
+                    <th style="text-align: right" colspan="5">Discount ({{ $invoice->discount }}%)</th>
                     <th>- Rs: {{ number_format($invoice->calculateDiscount(), 2) }}</th>
                 </tr>
                 <tr>
-                    <th style="text-align: right" colspan="4">Grand Total</th>
+                    <th style="text-align: right" colspan="5">Grand Total</th>
                     <th>Rs: {{ number_format($invoice->calculateGrandTotal(), 2) }}</th>
                 </tr>
             </tbody>

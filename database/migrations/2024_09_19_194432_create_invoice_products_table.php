@@ -15,8 +15,10 @@ return new class extends Migration {
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->foreignId('invoice_id')->constrained()->onDelete('cascade');
             $table->integer('qty');
-            $table->double('width');
-            $table->double('height');
+            $table->double('width_in_feet');
+            $table->double('width_in_inches');
+            $table->double('height_in_feet');
+            $table->double('height_in_inches');
             $table->double('price');
             $table->timestamps();
         });

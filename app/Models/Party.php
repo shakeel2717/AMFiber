@@ -24,7 +24,7 @@ class Party extends Model
             ->sum(function ($invoice) {
                 // Calculate the total amount for the invoice before discount
                 $invoiceTotal = $invoice->invoice_products->sum(function ($product) {
-                    return $product->width * $product->height * $product->qty * $product->price;
+                    return $product->totalSquareFeet() * $product->qty * $product->price;
                 });
 
                 // Apply discount if exists

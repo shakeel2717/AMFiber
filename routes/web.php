@@ -12,6 +12,7 @@ Route::redirect('/', '/dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::resource('/dashboard', DashboardController::class);
+    Route::get('/party/statement/{party}', [PartyController::class, 'statement'])->name('party.statement');
     Route::resource('/party', PartyController::class);
     Route::resource('/product', ProductController::class);
     Route::resource('/quotation', QuotationController::class);

@@ -13,8 +13,10 @@ class InvoiceCreate extends Component
     public $selectedCustomer;
     public $selectedProduct;
     public $productQty = 1;
-    public $width = 0;
-    public $height = 0;
+    public $width_in_feet = 0;
+    public $width_in_inches = 0;
+    public $height_in_feet = 0;
+    public $height_in_inches = 0;
 
     public $selectedProducts = [];
     public $quantities = [];
@@ -32,11 +34,20 @@ class InvoiceCreate extends Component
 
     public function addProduct()
     {
-        if ($this->selectedProduct && $this->width > 0 && $this->height > 0) {
+        if (
+            $this->selectedProduct
+            && ($this->width_in_feet > 0
+            || $this->width_in_inches > 0)
+            && ($this->height_in_feet > 0
+            || $this->height_in_inches > 0)
+        ) {
             $product = $this->products->find($this->selectedProduct);
 
+            $totalWidthInFeet = $this->width_in_feet + ($this->width_in_inches / 12);
+            $totalHeightInFeet = $this->height_in_feet + ($this->height_in_inches / 12);
+
             // Calculate square footage
-            $squareFeet = $this->width * $this->height;
+            $squareFeet = $totalWidthInFeet * $totalHeightInFeet;
 
             // Calculate total price (sqft * price * qty)
             $totalPrice = $squareFeet * $product->price * $this->productQty;
@@ -44,8 +55,10 @@ class InvoiceCreate extends Component
             $this->selectedProducts[] = [
                 'id' => $product->id,
                 'name' => $product->name,
-                'width' => $this->width,
-                'height' => $this->height,
+                'width_in_feet' => $this->width_in_feet,
+                'width_in_inches' => $this->width_in_inches,
+                'height_in_feet' => $this->height_in_feet,
+                'height_in_inches' => $this->height_in_inches,
                 'qty' => $this->productQty,
                 'price' => $product->price,
                 'total' => $totalPrice,
@@ -56,12 +69,16 @@ class InvoiceCreate extends Component
 
             // Reset inputs
             $this->productQty = 1;
-            $this->width = null;
-            $this->height = null;
+            $this->width_in_feet = null;
+            $this->width_in_inches = null;
+            $this->height_in_feet = null;
+            $this->height_in_inches = null;
             $this->selectedProduct = null;
 
             // Update total amount
             $this->calculateTotal();
+        } else {
+            $this->dispatch('error', status: 'Please select product and enter dimensions');
         }
     }
 
@@ -113,8 +130,10 @@ class InvoiceCreate extends Component
             \App\Models\InvoiceProduct::create([
                 'product_id' => $product['id'],
                 'invoice_id' => $invoice->id,
-                'width' => $product['width'],
-                'height' => $product['height'],
+                'width_in_feet' => $product['width_in_feet'],
+                'width_in_inches' => $product['width_in_inches'],
+                'height_in_feet' => $product['height_in_feet'],
+                'height_in_inches' => $product['height_in_inches'],
                 'qty' => $product['qty'],
                 'price' => $product['price'],
             ]);

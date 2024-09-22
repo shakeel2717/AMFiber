@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Invoice;
+use App\Models\Party;
+use App\Models\Quotation;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -11,7 +14,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view("dashboard.index");
+        $customers = Party::where('type', 'customer')->get();
+        $invoices = Invoice::all();
+        $quotations = Quotation::all();
+        return view("dashboard.index", compact('customers', 'invoices', 'quotations'));
     }
 
     /**

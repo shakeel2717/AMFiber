@@ -27,7 +27,7 @@ class Invoice extends Model
 
         $total = 0;
         foreach ($this->invoice_products as $item) {
-            $totalSize = $item->width * $item->height;
+            $totalSize = $item->totalSquareFeet();
             $total += $totalSize * $item->price * $item->qty;
         }
         return $total;

@@ -13,8 +13,8 @@
         </div>
 
         <div class="form-group">
-            <label for="product_id">Select Product</label>
-            <div class="input-group">
+            <div class="form-group">
+                <label for="product_id">Select Product</label>
                 <select wire:model.live="selectedProduct" id="product_id" class="form-control"
                     wire:key="select-product-{{ now() }}">
                     <option value="">Select a Product</option>
@@ -22,17 +22,29 @@
                         <option value="{{ $product->id }}">{{ $product->name }} - ${{ $product->price }}</option>
                     @endforeach
                 </select>
+            </div>
+            <label for="width">Width in Feet Inches</label>
+            <div class="input-group mb-3">
+                <input type="number" min="0" wire:model.live="width_in_feet" class="form-control ml-2"
+                    placeholder="Width (feet)" style="width: 80px;">
+                <input type="number" min="0" wire:model.live="width_in_inches" class="form-control ml-2"
+                    placeholder="Height (Inches)" style="width: 80px;">
+            </div>
+            <label for="width">Height in Feet Inches</label>
+            <div class="input-group mb-3">
+                <input type="number" min="0" wire:model.live="height_in_feet" class="form-control ml-2"
+                    placeholder="Width (feet)" style="width: 80px;">
+                <input type="number" min="0" wire:model.live="height_in_inches" class="form-control ml-2"
+                    placeholder="Height (inches)" style="width: 80px;">
 
+            </div>
+            <div class="form-group">
+                <label for="qty">Select Qty</label>
                 <input type="number" min="1" wire:model.live="productQty" class="form-control ml-2"
-                    placeholder="Qty" style="width: 80px;">
-                <input type="number" min="0" wire:model.live="width" class="form-control ml-2"
-                    placeholder="Width (ft)" style="width: 80px;">
-                <input type="number" min="0" wire:model.live="height" class="form-control ml-2"
-                    placeholder="Height (ft)" style="width: 80px;">
-
-                <div class="input-group-append">
-                    <button type="button" wire:click="addProduct" class="btn btn-primary">Add</button>
-                </div>
+                    placeholder="Qty">
+            </div>
+            <div class="input-group-append">
+                <button type="button" wire:click="addProduct" class="btn btn-primary">Add</button>
             </div>
         </div>
 
@@ -52,8 +64,8 @@
                 @foreach ($selectedProducts as $product)
                     <tr>
                         <td>{{ $product['name'] }}</td>
-                        <td>{{ $product['width'] }}</td>
-                        <td>{{ $product['height'] }}</td>
+                        <td>{{ $product['width_in_feet'] }}.{{ $product['width_in_inches'] }}</td>
+                        <td>{{ $product['height_in_feet'] }}.{{ $product['height_in_inches'] }}</td>
                         <td>
                             <input type="number" min="1" class="form-control"
                                 wire:model.live="quantities.{{ $product['id'] }}"

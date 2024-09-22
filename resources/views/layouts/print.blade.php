@@ -117,7 +117,7 @@
         /* Print Styles */
         @media print {
             @page {
-                size: A4 landscape;
+                size: A4;
                 /* Set the page to landscape */
                 margin: 10mm;
                 /* Adjust margins as needed */
