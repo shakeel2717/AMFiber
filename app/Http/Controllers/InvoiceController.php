@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Invoice;
 use Illuminate\Http\Request;
-use Spatie\LaravelPdf\Facades\Pdf;
-use Spatie\LaravelPdf\Enums\Format;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class InvoiceController extends Controller
 {
@@ -46,11 +45,8 @@ class InvoiceController extends Controller
      */
     public function edit(Invoice $invoice)
     {
-        $pdf = Pdf::view('dashboard.invoice.show', ['invoice' => $invoice])
-            ->format(Format::A4)
-            ->name($invoice->party->name . '_invoice-' . $invoice->id . '.pdf');
-
-        return $pdf->download();
+        $pdf = Pdf::loadView('dashboard.invoice.show', ['invoice' => $invoice])->setPaper('a4');
+        return $pdf->download($invoice->party->name . '_invoice-' . $invoice->id . '.pdf');
     }
 
     /**

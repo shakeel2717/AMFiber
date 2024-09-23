@@ -11,20 +11,17 @@
     <div class="details">
         <table>
             <tr>
-                <th>Customer Name:</th>
-                <td>{{ $quotation->party->name }}</td>
-            </tr>
-            <tr>
-                <th>Customer Address:</th>
-                <td>{{ $quotation->party->address }}</td>
-            </tr>
-            <tr>
-                <th>Customer Phone:</th>
-                <td>{{ $quotation->party->phone }}</td>
-            </tr>
-            <tr>
-                <th>Quotation Number:</th>
-                <td>{{ $quotation->id }}</td>
+                <th>Customer Detail:</th>
+                <td>
+                    <b>{{ strtoupper($quotation->party->name) }}</b>
+                    <br>
+                    <b>Phone:</b> {{ $quotation->party->phone }}
+                    <br>
+                    <b>Address:</b>
+                    {{ $quotation->party->address }}
+                </td>
+                <th>Quotation #:</th>
+                <td style="width: 100px">{{ $quotation->id }}</td>
             </tr>
         </table>
     </div>

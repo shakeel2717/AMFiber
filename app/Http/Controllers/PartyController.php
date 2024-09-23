@@ -7,8 +7,7 @@ use App\Models\Party;
 use App\Models\Payment;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Spatie\LaravelPdf\Facades\Pdf;
-use Spatie\LaravelPdf\Enums\Format;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PartyController extends Controller
 {
@@ -101,11 +100,9 @@ class PartyController extends Controller
     public function edit(Party $party)
     {
         $data = $this->fetchStatementData($party->id);
-        $pdf = Pdf::view('dashboard.party.statement', $data)
-            ->format(Format::A4)
-            ->name($party->name . '_party-' . $party->id . '.pdf');
 
-        return $pdf->download();
+        $pdf = Pdf::loadView('dashboard.party.statement', $data)->setPaper('a4');
+        return $pdf->download($party->name . '_party-' . $party->id . '.pdf');
     }
 
     /**

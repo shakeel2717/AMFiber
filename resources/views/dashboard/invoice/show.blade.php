@@ -11,20 +11,17 @@
     <div class="details">
         <table>
             <tr>
-                <th>Customer Name:</th>
-                <td>{{ $invoice->party->name }}</td>
-            </tr>
-            <tr>
-                <th>Customer Address:</th>
-                <td>{{ $invoice->party->address }}</td>
-            </tr>
-            <tr>
-                <th>Customer Phone:</th>
-                <td>{{ $invoice->party->phone }}</td>
-            </tr>
-            <tr>
-                <th>Invoice Number:</th>
-                <td>{{ $invoice->id }}</td>
+                <th>Customer Detail:</th>
+                <td>
+                    <b>{{ strtoupper($invoice->party->name) }}</b>
+                    <br>
+                    <b>Phone:</b> {{ $invoice->party->phone }}
+                    <br>
+                    <b>Address:</b>
+                    {{ $invoice->party->address }}
+                </td>
+                <th>Invoice #:</th>
+                <td style="width: 100px">{{ $invoice->id }}</td>
             </tr>
         </table>
     </div>
@@ -35,7 +32,7 @@
                 <tr>
                     <th>Product</th>
                     <th>Description</th>
-                    
+
                     <th>Total SQFT</th>
                     <th>Quantity</th>
                     <th>Unit Price (per sqft)</th>
@@ -46,8 +43,8 @@
                 @foreach ($invoice->invoice_products as $item)
                     <tr>
                         <td>
-                            <img style="filter: grayscale(1);" src="{{ asset('products/' . $item->product->image) }}" alt="Product image" width="100"
-                                height="150">
+                            <img style="filter: grayscale(1);" src="{{ asset('products/' . $item->product->image) }}"
+                                alt="Product image" width="100" height="150">
                         </td>
                         <td>
                             <b>
