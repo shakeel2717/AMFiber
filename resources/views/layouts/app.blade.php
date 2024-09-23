@@ -77,7 +77,7 @@
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link " href="{{ route('party.index') }}">
+                            <a class="nav-main-link " href="{{ route('party.create') }}">
                                 <i class="nav-main-link-icon fa fa-location-arrow"></i>
                                 <span class="nav-main-link-name">Add new Party</span>
                             </a>
