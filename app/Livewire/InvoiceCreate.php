@@ -35,6 +35,18 @@ class InvoiceCreate extends Component
 
     public function addProduct()
     {
+        if ($this->width_in_feet == '') {
+            $this->width_in_feet = 0;
+        } elseif ($this->width_in_inches == '') {
+            $this->width_in_inches = 0;
+        }
+
+        if ($this->height_in_feet == '') {
+            $this->height_in_feet = 0;
+        } elseif ($this->height_in_inches == '') {
+            $this->height_in_inches = 0;
+        }
+
         if (
             $this->selectedProduct
             && ($this->width_in_feet > 0
