@@ -15,6 +15,7 @@
         }
 
         .container {
+            width: 900px;
             max-width: 900px;
             /* Increased width to suit landscape */
             margin: 20px auto;
