@@ -60,7 +60,7 @@ class InvoiceCreate extends Component
             $totalHeightInFeet = $this->height_in_feet + ($this->height_in_inches / 12);
 
             // Calculate square footage
-            $squareFeet = $totalWidthInFeet * $totalHeightInFeet;
+            $squareFeet = $this->totalSquareFeet();
 
             // Calculate total price (sqft * price * qty)
             $totalPrice = $squareFeet * $product->price * $this->productQty;
@@ -104,17 +104,6 @@ class InvoiceCreate extends Component
         $this->calculateTotal();
     }
 
-    public function updateProduct($productId)
-    {
-        foreach ($this->selectedProducts as &$product) {
-            if ($product['id'] == $productId) {
-                $squareFeet = $product['width'] * $product['height'];
-                $product['total'] = $squareFeet * $product['price'] * $this->quantities[$productId];
-            }
-        }
-
-        $this->calculateTotal();
-    }
 
     public function calculateTotal()
     {
@@ -160,6 +149,21 @@ class InvoiceCreate extends Component
         $notification->save();
 
         return redirect()->route('invoice.show', ['invoice' => $invoice->id])->with('success', 'Invoice created successfully!');
+    }
+
+    public function totalSquareFeet()
+    {
+        $totalWidthInInches = ($this->width_in_feet * 12) + $this->width_in_inches;
+
+        // Convert height to inches
+        $totalHeightInInches = ($this->height_in_feet * 12) + $this->height_in_inches;
+
+        // Calculate square inches
+        $squareInches = $totalWidthInInches * $totalHeightInInches;
+
+        // Convert square inches to square feet
+        return $squareInches / 144;
+
     }
 
     public function render()

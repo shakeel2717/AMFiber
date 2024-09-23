@@ -47,38 +47,35 @@
                 <button type="button" wire:click="addProduct" class="btn btn-primary">Add</button>
             </div>
         </div>
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Width</th>
-                    <th>Height</th>
-                    <th>Qty</th>
-                    <th>Price/sqft</th>
-                    <th>Total Price</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($selectedProducts as $product)
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>{{ $product['name'] }}</td>
-                        <td>{{ $product['width_in_feet'] }}.{{ $product['width_in_inches'] }}</td>
-                        <td>{{ $product['height_in_feet'] }}.{{ $product['height_in_inches'] }}</td>
-                        <td>
-                            <input type="number" min="1" class="form-control"
-                                wire:model.live="quantities.{{ $product['id'] }}"
-                                wire:change="updateProduct({{ $product['id'] }})">
-                        </td>
-                        <td>Rs:{{ $product['price'] }}</td>
-                        <td>Rs:{{ $product['total'] }}</td>
-                        <td><button type="button" wire:click="removeProduct({{ $product['id'] }})"
-                                class="btn btn-danger btn-sm">Remove</button></td>
+                        <th>Product</th>
+                        <th>Width</th>
+                        <th>Height</th>
+                        <th>Qty</th>
+                        <th>Price/sqft</th>
+                        <th>Total Price</th>
+                        <th>Action</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($selectedProducts as $product)
+                        <tr>
+                            <td>{{ $product['name'] }}</td>
+                            <td>{{ $product['width_in_feet'] }}.{{ $product['width_in_inches'] }}</td>
+                            <td>{{ $product['height_in_feet'] }}.{{ $product['height_in_inches'] }}</td>
+                            <td>{{ $product['qty'] }}</td>
+                            <td>Rs:{{ number_format($product['price'],2) }}</td>
+                            <td>Rs:{{ number_format($product['total'],2) }}</td>
+                            <td><button type="button" wire:click="removeProduct({{ $product['id'] }})"
+                                    class="btn btn-danger btn-sm">Remove</button></td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
 
         <div class="form-group">
             <label for="discount">Discount (%)</label>
