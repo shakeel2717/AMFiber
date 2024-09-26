@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Notification;
+use App\Models\Plai;
 use Livewire\Component;
 use App\Models\Product;
 use App\Models\Party;
@@ -11,6 +12,8 @@ class InvoiceCreate extends Component
 {
     public $customers;
     public $products;
+    public $plais;
+    public $selectedPlai;
     public $selectedCustomer;
     public $selectedProduct;
     public $productQty = 1;
@@ -31,6 +34,7 @@ class InvoiceCreate extends Component
     {
         $this->customers = \App\Models\Party::where('type', 'customer')->get();
         $this->products = \App\Models\Product::get();
+        $this->plais = \App\Models\Plai::get();
     }
 
     public function addProduct()
@@ -62,18 +66,22 @@ class InvoiceCreate extends Component
             // Calculate square footage
             $squareFeet = $this->totalSquareFeet();
 
+            // getting selected Plai
+            $plai = Plai::find($this->selectedPlai);
+
             // Calculate total price (sqft * price * qty)
-            $totalPrice = $squareFeet * $product->price * $this->productQty;
+            $totalPrice = $squareFeet * $plai->price * $this->productQty;
 
             $this->selectedProducts[] = [
                 'id' => $product->id,
                 'name' => $product->name,
+                'plai_id' => $plai->id,
                 'width_in_feet' => $this->width_in_feet,
                 'width_in_inches' => $this->width_in_inches,
                 'height_in_feet' => $this->height_in_feet,
                 'height_in_inches' => $this->height_in_inches,
                 'qty' => $this->productQty,
-                'price' => $product->price,
+                'price' => $plai->price,
                 'total' => $totalPrice,
             ];
 
@@ -107,14 +115,17 @@ class InvoiceCreate extends Component
 
     public function calculateTotal()
     {
-        $total = $this->totalAmount = array_sum(array_column($this->selectedProducts, 'total'));
-        $this->without_discounted_amount = $total;
-        if ($this->discount > 0) {
-            $this->discounted_amount = $total * $this->discount / 100;
-            $this->totalAmount = $this->totalAmount - $this->discounted_amount;
+        if ($this->selectedPlai) {
+            $total = $this->totalAmount = array_sum(array_column($this->selectedProducts, 'total'));
+            $this->without_discounted_amount = $total;
+            if ($this->discount > 0) {
+                $this->discounted_amount = $total * $this->discount / 100;
+                $this->totalAmount = $this->totalAmount - $this->discounted_amount;
 
-        } else {
-            $this->totalAmount = array_sum(array_column($this->selectedProducts, 'total'));
+            } else {
+                $this->discount = 0;
+                $this->totalAmount = array_sum(array_column($this->selectedProducts, 'total'));
+            }
         }
     }
 
@@ -132,6 +143,7 @@ class InvoiceCreate extends Component
             \App\Models\InvoiceProduct::create([
                 'product_id' => $product['id'],
                 'invoice_id' => $invoice->id,
+                'plai_id' => $product['plai_id'],
                 'width_in_feet' => $product['width_in_feet'],
                 'width_in_inches' => $product['width_in_inches'],
                 'height_in_feet' => $product['height_in_feet'],

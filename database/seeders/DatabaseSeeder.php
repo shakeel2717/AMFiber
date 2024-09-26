@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Plai;
 use Illuminate\Support\Arr;
 use Illuminate\Database\Seeder;
 
@@ -63,12 +64,40 @@ class DatabaseSeeder extends Seeder
 
             \App\Models\Product::factory()->create([
                 'name' => 'AM-' . $i,
-                'price' => Arr::random([100, 200, 300, 400, 500]),
                 'description' => 'Product Description for AM-' . $i,
                 'image' => $i . '.jpg',
             ]);
         }
 
+        // adding plais
+        $plai = new Plai();
+        $plai->name = 'Single';
+        $plai->price = '100';
+        $plai->save();
+
+        // adding plais
+        $plai = new Plai();
+        $plai->name = '1.5';
+        $plai->price = '120';
+        $plai->save();
+
+        // adding plais
+        $plai = new Plai();
+        $plai->name = 'Double';
+        $plai->price = '140';
+        $plai->save();
+
+        // adding plais
+        $plai = new Plai();
+        $plai->name = 'Color Double';
+        $plai->price = '150';
+        $plai->save();
+
+        // adding plais
+        $plai = new Plai();
+        $plai->name = '3';
+        $plai->price = '210';
+        $plai->save();
 
     }
 }

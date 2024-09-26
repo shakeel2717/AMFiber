@@ -13,15 +13,33 @@
         </div>
 
         <div class="form-group">
-            <div class="form-group">
-                <label for="product_id">Select Product</label>
-                <select wire:model.live="selectedProduct" id="product_id" class="form-control"
-                    wire:key="select-product-{{ now() }}">
-                    <option value="">Select a Product</option>
-                    @foreach ($products as $product)
-                        <option value="{{ $product->id }}">{{ $product->name }} - ${{ $product->price }}</option>
-                    @endforeach
-                </select>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="product_id">Select Product</label>
+                        <select wire:model.live="selectedProduct" id="product_id" class="form-control"
+                            wire:key="select-product-{{ now() }}">
+                            <option value="">Select a Product</option>
+                            @foreach ($products as $product)
+                                <option value="{{ $product->id }}">{{ $product->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="plai_id">Select Plai</label>
+                        <select wire:model.live="selectedPlai" id="plai_id" class="form-control"
+                            wire:key="select-plai-{{ now() }}">
+                            <option value="">Select a Plai</option>
+                            @foreach ($plais as $plai)
+                                <option value="{{ $plai->id }}">{{ $plai->name }} ( Rs:{{ $plai->price }})
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
             </div>
             <label for="width">Width in Feet Inches</label>
             <div class="input-group mb-3">
@@ -43,9 +61,11 @@
                 <input type="number" min="1" wire:model.live="productQty" class="form-control ml-2"
                     placeholder="Qty">
             </div>
-            <div class="input-group-append">
-                <button type="button" wire:click="addProduct" class="btn btn-primary">Add</button>
-            </div>
+            @if ($selectedProduct && $selectedPlai && $productQty > 0 && $selectedCustomer)
+                <div class="input-group-append">
+                    <button type="button" wire:click="addProduct" class="btn btn-primary">Add</button>
+                </div>
+            @endif
         </div>
         <div class="table-responsive">
             <table class="table">
@@ -67,8 +87,8 @@
                             <td>{{ $product['width_in_feet'] }}.{{ $product['width_in_inches'] }}</td>
                             <td>{{ $product['height_in_feet'] }}.{{ $product['height_in_inches'] }}</td>
                             <td>{{ $product['qty'] }}</td>
-                            <td>Rs:{{ number_format($product['price'],2) }}</td>
-                            <td>Rs:{{ number_format($product['total'],2) }}</td>
+                            <td>Rs:{{ number_format($product['price'], 2) }}</td>
+                            <td>Rs:{{ number_format($product['total'], 2) }}</td>
                             <td><button type="button" wire:click="removeProduct({{ $product['id'] }})"
                                     class="btn btn-danger btn-sm">Remove</button></td>
                         </tr>
@@ -79,7 +99,7 @@
 
         <div class="form-group">
             <label for="discount">Discount (%)</label>
-            <input type="number" wire:model="discount" name="discount" id="discount" class="form-control"
+            <input type="number" wire:model.live="discount" name="discount" id="discount" class="form-control"
                 placeholder="Enter Discount" max="100" wire:change="calculateTotal()">
         </div>
 

@@ -22,7 +22,6 @@ final class AllProduct extends PowerGridComponent
 
     public $name;
     public $description;
-    public $price;
 
     public function setUp(): array
     {
@@ -81,11 +80,6 @@ final class AllProduct extends PowerGridComponent
                 ->searchable(),
 
             Column::make('Image', 'image_url'),
-
-            Column::make('Price', 'price')
-                ->sortable()
-                ->editOnClick()
-                ->searchable(),
 
             Column::make('Created at', 'created_at')
                 ->sortable(),

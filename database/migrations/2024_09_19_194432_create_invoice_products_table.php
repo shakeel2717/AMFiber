@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->foreignId('invoice_id')->constrained()->onDelete('cascade');
+            $table->foreignId('plai_id')->constrained()->onDelete('cascade');
             $table->integer('qty');
             $table->double('width_in_feet');
             $table->double('width_in_inches');
