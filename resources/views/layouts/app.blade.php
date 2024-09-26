@@ -95,6 +95,18 @@
                                 <span class="nav-main-link-name">Add new Product</span>
                             </a>
                         </li>
+                        <li class="nav-main-item">
+                            <a class="nav-main-link " href="{{ route('plai.index') }}">
+                                <i class="nav-main-link-icon fa fa-location-arrow"></i>
+                                <span class="nav-main-link-name">All Plais</span>
+                            </a>
+                        </li>
+                        <li class="nav-main-item">
+                            <a class="nav-main-link " href="{{ route('plai.create') }}">
+                                <i class="nav-main-link-icon fa fa-location-arrow"></i>
+                                <span class="nav-main-link-name">Add new Plai</span>
+                            </a>
+                        </li>
                         <li class="nav-main-heading">Quotation Management</li>
                         <li class="nav-main-item">
                             <a class="nav-main-link " href="{{ route('quotation.index') }}">

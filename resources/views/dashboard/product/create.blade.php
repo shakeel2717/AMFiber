@@ -15,11 +15,6 @@
                                 class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label for="price">product Price Square Feet</label>
-                            <input type="text" name="price" id="price"
-                                placeholder="Enter product Price Square Feet" class="form-control">
-                        </div>
-                        <div class="form-group">
                             <label for="image">Upload Product Image</label>
                             <input type="file" name="image" id="image" class="form-control">
                         </div>
