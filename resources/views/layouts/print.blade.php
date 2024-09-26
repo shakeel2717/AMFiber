@@ -15,8 +15,10 @@
         }
 
         .container {
-            max-width: 210mm;
+            width: 210mm;
+            min-height: 297mm;
             margin: 20px auto;
+            padding: 0 10px;
         }
 
         /* Header */
@@ -109,44 +111,6 @@
         }
 
         /* Print Styles */
-        @media print {
-            @page {
-                size: A4;
-                /* Set the page to landscape */
-                margin: 10mm;
-                /* Adjust margins as needed */
-            }
-
-            .container {
-                max-width: 100%;
-                /* Use full width in print */
-                margin: 0;
-                padding: 0;
-                border: none;
-                box-shadow: none;
-            }
-
-            /* Hide any elements not needed in print */
-            .header img {
-                display: none;
-            }
-
-            .footer {
-                margin-top: 10mm;
-            }
-
-            .card-content p {
-                font-size: 12px;
-                /* Adjust font size for print */
-            }
-
-            table {
-                font-size: 12px;
-                /* Ensure table fits within landscape layout */
-            }
-
-        }
-
         .note-text {
             font-size: 12px;
         }
@@ -170,13 +134,47 @@
         .brand {
             font-size: 2rem !important;
         }
+
+        .save-button {
+            text-align: center;
+        }
+
+        .save-button button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" id="invoice">
+        <div class="save-button">
+            <button id="download-invoice">Download Invoice as JPG</button>
+        </div>
         @yield('content')
     </div>
+    <script>
+        document.getElementById('download-invoice').addEventListener('click', function() {
+            // hide this button
+            document.getElementById('download-invoice').style.display = 'none';
+            html2canvas(document.getElementById('invoice')).then(function(canvas) {
+                // Convert canvas to a base64 image and download
+                var link = document.createElement('a');
+                link.href = canvas.toDataURL('image/jpeg');
+                link.download = 'invoice.jpg';
+                link.click();
+            }).catch(function(error) {
+                console.error('Error generating canvas:', error);
+            });
+
+            document.getElementById('download-invoice').style.display = 'inline';
+        });
+    </script>
 </body>
 
 </html>
