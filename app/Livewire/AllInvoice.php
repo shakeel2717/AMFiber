@@ -98,6 +98,11 @@ final class AllInvoice extends PowerGridComponent
     public function actions(\App\Models\Invoice $row): array
     {
         return [
+            Button::add('edit')
+                ->slot('Edit')
+                ->class('btn btn-primary btn-sm')
+                ->route('invoice.edit_product', ['invoice' => $row->id]),
+
             Button::add('delete')
                 ->slot('Delete')
                 ->id()

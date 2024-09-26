@@ -18,6 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/product', ProductController::class);
     Route::resource('/plai', PlaiController::class);
     Route::resource('/quotation', QuotationController::class);
+    Route::get('/invoice/{invoice}/edit_product', [InvoiceController::class, 'edit_product'])->name('invoice.edit_product');
     Route::resource('/invoice', InvoiceController::class);
     Route::resource('/payment', PaymentController::class);
 });
