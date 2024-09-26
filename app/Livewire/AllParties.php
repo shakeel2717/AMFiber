@@ -124,14 +124,9 @@ final class AllParties extends PowerGridComponent
     {
         return [
             Button::add('statement')
-                ->slot('Balance Statement')
+                ->slot('Print Statement')
                 ->class('btn btn-primary btn-sm')
                 ->route('party.statement', ['party' => $row->id]),
-
-            Button::add('download')
-                ->slot('Download')
-                ->class('btn btn-primary btn-sm')
-                ->route('party.edit', ['party' => $row->id])
         ];
     }
 
