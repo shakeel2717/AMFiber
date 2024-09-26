@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Notification;
+use App\Models\Payment;
 use App\Models\Plai;
 use Livewire\Component;
 use App\Models\Product;
@@ -27,6 +28,7 @@ class InvoiceCreate extends Component
     public $totalAmount = 0;
 
     public $discount = 0;
+    public $advance = 0;
     public $discounted_amount;
     public $without_discounted_amount;
 
@@ -137,6 +139,7 @@ class InvoiceCreate extends Component
             'customer_id' => $this->selectedCustomer,
             'total_amount' => $this->totalAmount,
             'discount' => $this->discount,
+            'advance' => $this->advance,
         ]);
 
         foreach ($this->selectedProducts as $product) {
@@ -151,6 +154,16 @@ class InvoiceCreate extends Component
                 'qty' => $product['qty'],
                 'price' => $product['price'],
             ]);
+        }
+
+        // adding advance payment
+        if ($this->advance > 0) {
+            $payment = new Payment();
+            $payment->party_id = $this->selectedCustomer;
+            $payment->amount = $this->advance;
+            $payment->payment_method = 'Cash';
+            $payment->reference = 'Advance Payment for Invoice #' . $invoice->id;
+            $payment->save();
         }
 
         // adding notification

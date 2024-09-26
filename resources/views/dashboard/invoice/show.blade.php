@@ -80,12 +80,19 @@
                     <th>- Rs: {{ number_format($invoice->calculateDiscount(), 2) }}</th>
                 </tr>
                 <tr>
-                    <th style="text-align: right" colspan="5">Grand Total</th>
+                    <th style="text-align: right" colspan="5">Total After Discount ({{ $invoice->discount }}%)</th>
+                    <th>- Rs: {{ number_format($invoice->calculateSubtotal() - $invoice->calculateDiscount(), 2) }}</th>
+                </tr>
+                <tr>
+                    <th style="text-align: right" colspan="5">Advance Payment</th>
+                    <th>Rs: {{ number_format($invoice->advance, 2) }}</th>
+                </tr>
+                <tr>
+                    <th style="text-align: right" colspan="5">Balance Due</th>
                     <th>Rs: {{ number_format($invoice->calculateGrandTotal(), 2) }}</th>
                 </tr>
             </tbody>
         </table>
-
     </div>
 
     <div class="card">

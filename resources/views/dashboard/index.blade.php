@@ -35,6 +35,35 @@
             </div>
         </div>
     </div>
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Add Invoice</h5>
+                    <p class="card-text">Easily create and manage your invoices.</p>
+                    <a href="{{ route('invoice.create') }}" class="btn btn-primary">Create Invoice</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Add Quotation</h5>
+                    <p class="card-text">Record a new quotation.</p>
+                    <a href="{{ route('quotation.create') }}" class="btn btn-primary">Add Quotation</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Add Payment</h5>
+                    <p class="card-text">Record a new payment.</p>
+                    <a href="{{ route('payment.create') }}" class="btn btn-primary">Add Payment</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row items-push">
         <div class="col-md-12">
             <div class="card">

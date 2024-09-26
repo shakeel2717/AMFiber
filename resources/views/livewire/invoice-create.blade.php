@@ -104,6 +104,12 @@
         </div>
 
         <div class="form-group">
+            <label for="advance">Advance Payment</label>
+            <input type="number" wire:model.live="advance" name="advance" id="advance" class="form-control"
+                placeholder="Enter Advance Payment" max="100" wire:change="calculateTotal()">
+        </div>
+
+        <div class="form-group">
             <h4 class="mb-0">Total: Rs:{{ number_format($without_discounted_amount, 2) }}</h4>
             @if ($discounted_amount > 0)
                 <h4 class="mb-0">Discount: Rs:{{ number_format($discounted_amount, 2) }}</h4>
