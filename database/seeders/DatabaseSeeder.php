@@ -20,6 +20,30 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt("asdfasdf")
         ]);
 
+        \App\Models\User::factory()->create([
+            'name' => 'Asif Fiber',
+            'email' => 'asiffiber@gmail.com',
+            'password' => bcrypt("asdfasdf")
+        ]);
+
+        \App\Models\User::factory()->create([
+            'name' => 'Kashif Mukhtar',
+            'email' => 'kashifmukhtar349@gmail.com',
+            'password' => bcrypt("asdfasdf")
+        ]);
+
+        \App\Models\User::factory()->create([
+            'name' => 'Atif Mukhtar',
+            'email' => 'atifmukhtar701@gmail.com',
+            'password' => bcrypt("asdfasdf")
+        ]);
+
+        \App\Models\User::factory()->create([
+            'name' => 'Saqib Mukhtar',
+            'email' => 'saqibmukhtar51@gmail.com',
+            'password' => bcrypt("asdfasdf")
+        ]);
+
         \App\Models\Party::factory()->create([
             'name' => 'Asan Webs',
             'phone' => '1234567890',
