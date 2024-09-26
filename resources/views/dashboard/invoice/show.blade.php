@@ -26,6 +26,16 @@
         </table>
     </div>
 
+    <div class="highlighted-card">
+        <div class="card">
+            <div class="card-content">
+                <h3 class="">Customer Balance:
+                    Rs: {{ number_format($invoice->party->balance(), 2) }}
+                </h3>
+            </div>
+        </div>
+    </div>
+
     <div class="products">
         <table>
             <thead>
@@ -76,16 +86,6 @@
             </tbody>
         </table>
 
-    </div>
-
-    <div class="highlighted-card">
-        <div class="card">
-            <div class="card-content">
-                <h3 class="">Balance:
-                    Rs: {{ number_format($invoice->party->balance(), 2) }}
-                </h3>
-            </div>
-        </div>
     </div>
 
     <div class="card">
