@@ -77,12 +77,12 @@
                         <th>Rs: {{ number_format($invoice->calculateSubtotal(), 2) }}</th>
                     </tr>
                     <tr>
-                        <th style="text-align: right" colspan="5">Discount ({{ $invoice->discount }}%)</th>
+                        <th style="text-align: right" colspan="5">Discount </th>
                         <th>- Rs: {{ number_format($invoice->calculateDiscount(), 2) }}</th>
                     </tr>
                     <tr>
-                        <th style="text-align: right" colspan="5">Total After Discount ({{ $invoice->discount }}%)</th>
-                        <th>- Rs: {{ number_format($invoice->calculateSubtotal() - $invoice->calculateDiscount(), 2) }}
+                        <th style="text-align: right" colspan="5">Total After Discount</th>
+                        <th>Rs: {{ number_format($invoice->calculateSubtotal() - $invoice->calculateDiscount(), 2) }}
                         </th>
                     </tr>
                     <tr>

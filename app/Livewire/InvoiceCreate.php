@@ -121,8 +121,8 @@ class InvoiceCreate extends Component
             $total = $this->totalAmount = array_sum(array_column($this->selectedProducts, 'total'));
             $this->without_discounted_amount = $total;
             if ($this->discount > 0) {
-                $this->discounted_amount = $total * $this->discount / 100;
-                $this->totalAmount = $this->totalAmount - $this->discounted_amount;
+                $this->discounted_amount = $this->discount;
+                $this->totalAmount = $total - $this->discount;
 
             } else {
                 $this->discount = 0;

@@ -35,7 +35,7 @@ class Invoice extends Model
 
     public function calculateDiscount()
     {
-        return $this->calculateSubtotal() * $this->discount / 100;
+        return $this->discount;
 
     }
 
