@@ -24,7 +24,7 @@
                                 placeholder="Enter Product Description" class="form-control">
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-sm">Add Party</button>
+                            <button type="submit" class="btn btn-primary btn-sm">Add Product</button>
                         </div>
                     </form>
                 </div>
