@@ -18,10 +18,10 @@ class InvoiceCreate extends Component
     public $selectedCustomer;
     public $selectedProduct;
     public $productQty = 1;
-    public $width_in_feet = 0;
-    public $width_in_inches = 0;
-    public $height_in_feet = 0;
-    public $height_in_inches = 0;
+    public $width_in_feet = '';
+    public $width_in_inches = '';
+    public $height_in_feet = '';
+    public $height_in_inches = '';
 
     public $selectedProducts = [];
     public $quantities = [];
