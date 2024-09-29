@@ -28,7 +28,7 @@ class Party extends Model
                 });
 
                 // Apply discount if exists
-                $discountedTotal = $invoiceTotal * (1 - ($invoice->discount / 100));
+                $discountedTotal = $invoiceTotal - $invoice->discount;
 
                 return $discountedTotal;
             });
