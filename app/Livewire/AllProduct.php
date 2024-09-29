@@ -59,7 +59,11 @@ final class AllProduct extends PowerGridComponent
 
             ->addColumn('description')
             ->addColumn('image_url', function (Product $model) {
-                return '<img src="' . asset('products/' . $model->image) . '" width="100" height="100">';
+                if ($model->image) {
+                    return '<img src="' . asset('products/' . $model->image) . '" width="100" height="100">';
+                } else {
+                    return "No Image";
+                }
             })
             ->addColumn('price')
             ->addColumn('created_at_formatted', fn(Product $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
