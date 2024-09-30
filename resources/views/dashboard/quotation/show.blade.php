@@ -95,8 +95,4 @@
             clarification, feel
             free to contact us.</p>
     </div>
-
-    <div class="footer">
-        <p>Thank you for your business!</p>
-    </div>
 @endsection

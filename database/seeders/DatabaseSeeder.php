@@ -44,40 +44,40 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt("asdfasdf")
         ]);
 
-        \App\Models\Party::factory()->create([
-            'name' => 'Asan Webs',
-            'phone' => '1234567890',
-            'address' => 'AMFiber House, Sector 63, Noida, UP',
-            'type' => 'customer',
-        ]);
+        // \App\Models\Party::factory()->create([
+        //     'name' => 'Asan Webs',
+        //     'phone' => '1234567890',
+        //     'address' => 'AMFiber House, Sector 63, Noida, UP',
+        //     'type' => 'customer',
+        // ]);
 
-        \App\Models\Party::factory()->create([
-            'name' => 'Customer Account 2',
-            'phone' => '1234567890',
-            'address' => 'AMFiber House, Sector 63, Noida, UP',
-            'type' => 'customer',
-        ]);
+        // \App\Models\Party::factory()->create([
+        //     'name' => 'Customer Account 2',
+        //     'phone' => '1234567890',
+        //     'address' => 'AMFiber House, Sector 63, Noida, UP',
+        //     'type' => 'customer',
+        // ]);
 
-        \App\Models\Party::factory()->create([
-            'name' => 'Customer Account 3',
-            'phone' => '1234567890',
-            'address' => 'AMFiber House, Sector 63, Noida, UP',
-            'type' => 'customer',
-        ]);
+        // \App\Models\Party::factory()->create([
+        //     'name' => 'Customer Account 3',
+        //     'phone' => '1234567890',
+        //     'address' => 'AMFiber House, Sector 63, Noida, UP',
+        //     'type' => 'customer',
+        // ]);
 
-        \App\Models\Party::factory()->create([
-            'name' => 'Vendor Account 1',
-            'phone' => '1234567890',
-            'address' => 'AMFiber House, Sector 63, Noida, UP',
-            'type' => 'vendor',
-        ]);
+        // \App\Models\Party::factory()->create([
+        //     'name' => 'Vendor Account 1',
+        //     'phone' => '1234567890',
+        //     'address' => 'AMFiber House, Sector 63, Noida, UP',
+        //     'type' => 'vendor',
+        // ]);
 
-        \App\Models\Party::factory()->create([
-            'name' => 'Vendor Account 2',
-            'phone' => '1234567890',
-            'address' => 'AMFiber House, Sector 63, Noida, UP',
-            'type' => 'vendor',
-        ]);
+        // \App\Models\Party::factory()->create([
+        //     'name' => 'Vendor Account 2',
+        //     'phone' => '1234567890',
+        //     'address' => 'AMFiber House, Sector 63, Noida, UP',
+        //     'type' => 'vendor',
+        // ]);
 
         for ($i = 1; $i < 38; $i++) {
 

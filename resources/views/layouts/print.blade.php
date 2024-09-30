@@ -157,6 +157,15 @@
             <button id="download-invoice">Download Invoice as JPG</button>
         </div>
         @yield('content')
+
+        <div class="footer" style="display:flex; justify-content: space-between">
+            <p>Thank you for your business!</p>
+            <p style="font-size: 11px; text-align: center; align-self:flex-end">Design and Developed by:
+                <a href="https://asanwebs.com" target="_blank" class="opacity-75">ASANWEBS</a>
+            </p>
+        </div>
+
+    </div>
     </div>
     <script>
         document.getElementById('download-invoice').addEventListener('click', function() {

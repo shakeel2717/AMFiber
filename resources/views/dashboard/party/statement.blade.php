@@ -81,7 +81,8 @@
     <div class="card">
         <div class="card-title">Terms and Conditions</div>
         <div class="card-content">
-            <p>All services are provided in accordance with the service agreement signed at the time of contract initiation. Any changes to the agreement must be documented and approved by both parties.</p>
+            <p>All services are provided in accordance with the service agreement signed at the time of contract initiation.
+                Any changes to the agreement must be documented and approved by both parties.</p>
         </div>
     </div>
     <div class="card">
@@ -89,9 +90,5 @@
         <p class="note-text">Please review the statement carefully. If you have any questions or need further
             clarification, feel
             free to contact us.</p>
-    </div>
-
-    <div class="footer">
-        <p>Thank you for your business!</p>
     </div>
 @endsection

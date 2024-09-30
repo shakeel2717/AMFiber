@@ -96,7 +96,6 @@ class InvoiceCreate extends Component
             $this->width_in_inches = null;
             $this->height_in_feet = null;
             $this->height_in_inches = null;
-            $this->selectedProduct = null;
 
             // Update total amount
             $this->calculateTotal();

@@ -295,8 +295,8 @@
             <div class="content py-0">
                 <div class="row fs-sm">
                     <div class="col-sm-6 order-sm-2 mb-1 mb-sm-0 text-center text-sm-end">
-                        Crafted with <i class="fa fa-heart text-danger"></i> by Technet
-                    </div>
+                        Crafted with <i class="fa fa-heart text-danger"></i> by <a href="https://asanwebs.com"
+                            target="_blank" class="opacity-75">ASANWEBS</a></div>
                     <div class="col-sm-6 order-sm-1 text-center text-sm-start">
                         {{ env('APP_NAME') }} &copy; <span data-toggle="year-copy"></span>
                     </div>
