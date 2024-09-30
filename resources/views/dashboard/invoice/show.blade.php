@@ -51,6 +51,9 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @php
+                    $totalSQFT = 0;
+                    @endphp
                     @foreach ($invoice->invoice_products as $item)
                         <tr>
                             <td>
@@ -68,10 +71,20 @@
                             <td>{{ number_format($item->totalSquareFeet(), 2) }}</td>
                             <td>{{ $item->qty }}</td>
                             <td>Rs: {{ number_format($item->price, 2) }}</td>
-                            <td>Rs: {{ number_format($item->totalSquareFeet() * $item->price * $item->qty, 2) }}
-                            </td>
+                            <td>Rs: {{ number_format($item->totalSquareFeet() * $item->price * $item->qty, 2) }}</td>
+                            @php
+                                $totalSQFT += $item->totalSquareFeet();
+                            @endphp
                         </tr>
                     @endforeach
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>{{ $totalSQFT }}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                     <tr>
                         <th style="text-align: right" colspan="5">Subtotal</th>
                         <th>Rs: {{ number_format($invoice->calculateSubtotal(), 2) }}</th>
