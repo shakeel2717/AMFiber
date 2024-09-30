@@ -80,7 +80,7 @@
                     <tr>
                         <td></td>
                         <td></td>
-                        <td>{{ $totalSQFT }}</td>
+                        <td>{{ number_format($totalSQFT,2) }}</td>
                         <td></td>
                         <td></td>
                         <td></td>
