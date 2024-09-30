@@ -92,11 +92,7 @@ class InvoiceCreate extends Component
 
             // Reset inputs
             $this->productQty = 1;
-            $this->width_in_feet = null;
-            $this->width_in_inches = null;
-            $this->height_in_feet = null;
-            $this->height_in_inches = null;
-
+            
             // Update total amount
             $this->calculateTotal();
         } else {
