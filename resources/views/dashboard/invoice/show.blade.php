@@ -73,7 +73,7 @@
                             <td>Rs: {{ number_format($item->price, 2) }}</td>
                             <td>Rs: {{ number_format($item->totalSquareFeet() * $item->price * $item->qty, 2) }}</td>
                             @php
-                                $totalSQFT += $item->totalSquareFeet();
+                                $totalSQFT += $item->totalSquareFeet() * $item->qty;
                             @endphp
                         </tr>
                     @endforeach

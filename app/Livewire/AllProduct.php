@@ -88,7 +88,7 @@ final class AllProduct extends PowerGridComponent
             Column::make('Created at', 'created_at')
                 ->sortable(),
 
-            // Column::action('Action')
+            Column::action('Action')
         ];
     }
 
@@ -110,22 +110,25 @@ final class AllProduct extends PowerGridComponent
         ]);
     }
 
-    // #[\Livewire\Attributes\On('edit')]
-    // public function edit($rowId): void
-    // {
-    //     $this->js('alert('.$rowId.')');
-    // }
+    #[\Livewire\Attributes\On('delete')]
+    public function delete($rowId): void
+    {
+        $product = Product::find($rowId);
+        $product->delete();
 
-    // public function actions(\App\Models\Product $row): array
-    // {
-    //     return [
-    //         Button::add('edit')
-    //             ->slot('Edit: '.$row->id)
-    //             ->id()
-    //             ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-    //             ->dispatch('edit', ['rowId' => $row->id])
-    //     ];
-    // }
+        $this->dispatch('success', status: 'Product Deleted successfully!');
+    }
+
+    public function actions(\App\Models\Product $row): array
+    {
+        return [
+            Button::add('delete')
+                ->slot('Delete')
+                ->id()
+                ->class('btn btn-danger btn-sm')
+                ->dispatch('delete', ['rowId' => $row->id])
+        ];
+    }
 
     /*
     public function actionRules($row): array

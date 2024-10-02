@@ -74,7 +74,7 @@ final class AllPlai extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            // Column::action('Action')
+            Column::action('Action')
         ];
     }
 
@@ -91,22 +91,25 @@ final class AllPlai extends PowerGridComponent
         ]);
     }
 
-    #[\Livewire\Attributes\On('edit')]
-    public function edit($rowId): void
+    #[\Livewire\Attributes\On('delete')]
+    public function delete($rowId): void
     {
-        $this->js('alert(' . $rowId . ')');
+        $product = Plai::find($rowId);
+        $product->delete();
+
+        $this->dispatch('success', status: 'Plai Deleted successfully!');
     }
 
-    // public function actions(Plai $row): array
-    // {
-    //     return [
-    //         Button::add('edit')
-    //             ->slot('Edit: ' . $row->id)
-    //             ->id()
-    //             ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-    //             ->dispatch('edit', ['rowId' => $row->id])
-    //     ];
-    // }
+    public function actions(\App\Models\Plai $row): array
+    {
+        return [
+            Button::add('delete')
+                ->slot('Delete')
+                ->id()
+                ->class('btn btn-danger btn-sm')
+                ->dispatch('delete', ['rowId' => $row->id])
+        ];
+    }
 
     /*
     public function actionRules($row): array
