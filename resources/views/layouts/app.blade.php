@@ -21,7 +21,6 @@
             margin-bottom: 15px;
         }
     </style>
-    @powerGridStyles
 </head>
 
 <body>
@@ -310,7 +309,6 @@
     <script src="/assets/js/custom.js"></script>
     <x-alert />
     @livewireScripts
-    @powerGridScripts
 </body>
 
 </html>
