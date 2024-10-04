@@ -82,10 +82,6 @@ class DatabaseSeeder extends Seeder
         for ($i = 1; $i < 38; $i++) {
 
 
-            if ($i == 24 || $i == 27) {
-                continue;
-            }
-
             \App\Models\Product::factory()->create([
                 'name' => 'AM-' . $i,
                 'description' => 'Product Description for AM-' . $i,
