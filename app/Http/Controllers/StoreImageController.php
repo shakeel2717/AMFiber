@@ -39,13 +39,15 @@ class StoreImageController extends Controller
         // Define a unique file name
         $fileName = 'AMFiber-' . time() . '.' . $imageType;
 
-        // Save the file in the public storage (you can change the path as needed)
+        // Save the file in the public directory (adjust path if needed)
         $filePath = 'downloads/' . $fileName;
         Storage::disk('public')->put($filePath, $imageBase64);
 
-        // Force download response
-        $absolutePath = storage_path('app/public/' . $filePath); // Adjust path if necessary
-        return response()->download($absolutePath);
+        // Generate a public URL for the file
+        $fileUrl = Storage::disk('public')->url($filePath);
+
+        // Return the download link (you can also redirect or trigger download)
+        return response()->json(['downloadUrl' => $fileUrl, 'fileName' => $fileName]);
     }
 
     /**

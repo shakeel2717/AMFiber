@@ -170,7 +170,7 @@
     </div>
     <script>
         document.getElementById('download-invoice').addEventListener('click', function() {
-            // hide this button
+            // Hide this button
             document.getElementById('download-invoice').style.display = 'none';
 
             html2canvas(document.getElementById('invoice')).then(function(canvas) {
@@ -187,19 +187,24 @@
                             image: imageData
                         })
                     })
-                    .then(response => response.blob())
-                    .then(blob => {
+                    .then(response => response
+                .json()) // Change to response.json() to parse the JSON response
+                    .then(data => {
+                        // Create a download link using the URL returned by the server
                         var downloadLink = document.createElement('a');
-                        downloadLink.href = window.URL.createObjectURL(blob);
-                        downloadLink.download = 'invoice.jpg';
-                        downloadLink.click();
+                        downloadLink.href = data.downloadUrl; // Use the URL from the response
+                        downloadLink.download = data.fileName; // Set a default filename
+                        document.body.appendChild(downloadLink);
+                        downloadLink.click(); // Trigger the download
+                        document.body.removeChild(downloadLink); // Clean up
                     })
                     .catch(error => {
                         console.error('Error saving image:', error);
                     });
-            });
 
-            document.getElementById('download-invoice').style.display = 'inline';
+                // Show the button again after processing
+                document.getElementById('download-invoice').style.display = 'inline';
+            });
         });
     </script>
 </body>
