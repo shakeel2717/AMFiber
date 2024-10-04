@@ -155,7 +155,7 @@
 <body>
     <div class="container" id="invoice">
         <div class="save-button">
-            <button id="download-invoice">Download Invoice as JPG</button>
+            <button id="download-invoice">Download as JPG</button>
         </div>
         @yield('content')
 
