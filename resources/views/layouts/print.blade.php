@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Quotation</title>
     <style>
         /* Base styles */
@@ -171,14 +172,31 @@
         document.getElementById('download-invoice').addEventListener('click', function() {
             // hide this button
             document.getElementById('download-invoice').style.display = 'none';
+
             html2canvas(document.getElementById('invoice')).then(function(canvas) {
-                // Convert canvas to a base64 image and download
-                var link = document.createElement('a');
-                link.href = canvas.toDataURL('image/jpeg');
-                link.download = 'invoice.jpg';
-                link.click();
-            }).catch(function(error) {
-                console.error('Error generating canvas:', error);
+                var imageData = canvas.toDataURL('image/jpeg');
+
+                fetch('/save-image', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                .getAttribute('content')
+                        },
+                        body: JSON.stringify({
+                            image: imageData
+                        })
+                    })
+                    .then(response => response.blob())
+                    .then(blob => {
+                        var downloadLink = document.createElement('a');
+                        downloadLink.href = window.URL.createObjectURL(blob);
+                        downloadLink.download = 'invoice.jpg';
+                        downloadLink.click();
+                    })
+                    .catch(error => {
+                        console.error('Error saving image:', error);
+                    });
             });
 
             document.getElementById('download-invoice').style.display = 'inline';

@@ -7,6 +7,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PlaiController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\QuotationController;
+use App\Http\Controllers\StoreImageController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/dashboard');
@@ -22,5 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/invoice', InvoiceController::class);
     Route::resource('/payment', PaymentController::class);
 });
+
+Route::post('/save-image', [StoreImageController::class, 'saveImage']);
 
 require __DIR__ . '/auth.php';
