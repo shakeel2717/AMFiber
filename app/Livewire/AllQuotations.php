@@ -44,7 +44,8 @@ final class AllQuotations extends PowerGridComponent
     {
         return [
             "Party" => [
-                'name'
+                'name',
+                'phone',
             ]
         ];
     }

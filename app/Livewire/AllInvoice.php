@@ -42,7 +42,12 @@ final class AllInvoice extends PowerGridComponent
 
     public function relationSearch(): array
     {
-        return [];
+        return [
+            "Party" => [
+                'name',
+                'phone',
+            ]
+        ];
     }
 
     public function addColumns(): PowerGridColumns
