@@ -170,23 +170,11 @@
                                 User Options
                             </div>
                             <div class="p-2">
-                                <a class="dropdown-item" href="be_pages_generic_profile.html">
-                                    <i class="far fa-fw fa-user me-1"></i> Profile
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center justify-content-between"
-                                    href="be_pages_generic_inbox.html">
-                                    <span><i class="far fa-fw fa-envelope me-1"></i> Inbox</span>
-                                    <span class="badge bg-primary rounded-pill">3</span>
-                                </a>
-                                <a class="dropdown-item" href="be_pages_generic_invoice.html">
+                                <a class="dropdown-item" href="{{ route('invoice.index') }}">
                                     <i class="far fa-fw fa-file-alt me-1"></i> Invoices
                                 </a>
                                 <div role="separator" class="dropdown-divider"></div>
 
-                                <a class="dropdown-item" href="javascript:void(0)" data-toggle="layout"
-                                    data-action="side_overlay_toggle">
-                                    <i class="far fa-fw fa-building me-1"></i> Settings
-                                </a>
                                 <div role="separator" class="dropdown-divider"></div>
                                 <form id="logoutForm" action="{{ route('logout') }}" method="POST">
                                     @csrf
@@ -210,7 +198,8 @@
                             <ul class="nav-items my-2">
                                 @forelse (auth()->user()->notifications()->take(5) as $notification)
                                     <li class="px-2">
-                                        <a class="" href="javascript:void(0)">
+                                        <a class=""
+                                            href="{{ $notification->redirect_url ? $notification->redirect_url : '#' }}">
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0">
                                                     <i class="fa fa-fw fa-check-circle text-success"></i>

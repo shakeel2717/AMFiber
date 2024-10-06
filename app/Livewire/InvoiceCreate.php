@@ -92,7 +92,7 @@ class InvoiceCreate extends Component
 
             // Reset inputs
             $this->productQty = 1;
-            
+
             // Update total amount
             $this->calculateTotal();
         } else {
@@ -118,7 +118,6 @@ class InvoiceCreate extends Component
             if ($this->discount > 0) {
                 $this->discounted_amount = $this->discount;
                 $this->totalAmount = $total - $this->discount;
-
             } else {
                 $this->discount = 0;
                 $this->totalAmount = array_sum(array_column($this->selectedProducts, 'total'));
@@ -166,6 +165,7 @@ class InvoiceCreate extends Component
         $notification->user_id = auth()->user()->id;
         $notification->title = 'New Invoice Created';
         $notification->body = auth()->user()->name . ' created a new invoice. the Invoice ID is ' . $invoice->id;
+        $notification->redirect_url = route('invoice.show', ['invoice' => $invoice->id]);
         $notification->save();
 
         return redirect()->route('invoice.show', ['invoice' => $invoice->id])->with('success', 'Invoice created successfully!');
@@ -183,7 +183,6 @@ class InvoiceCreate extends Component
 
         // Convert square inches to square feet
         return $squareInches / 144;
-
     }
 
     public function render()

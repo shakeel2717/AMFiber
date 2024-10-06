@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('title');
+            $table->string('redirect_url')->nullable();
             $table->text('body');
             $table->timestamps();
         });

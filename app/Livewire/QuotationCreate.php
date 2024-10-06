@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Livewire;
 
 use App\Models\Notification;
@@ -120,6 +121,7 @@ class QuotationCreate extends Component
         $notification->user_id = auth()->user()->id;
         $notification->title = 'New Quotation Created';
         $notification->body = auth()->user()->name . ' created a new Quotation. the Quotation ID is ' . $quotation->id;
+        $notification->redirect_url = route('quotation.show', ['quotation' => $quotation->id]);
         $notification->save();
 
         return redirect()->route('quotation.show', ['quotation' => $quotation->id])->with('success', 'Quotation created successfully!');
