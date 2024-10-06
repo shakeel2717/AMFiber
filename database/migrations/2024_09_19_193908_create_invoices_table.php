@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->double('total_amount');
             $table->double('discount');
             $table->double('advance');
+            $table->boolean('status')->default(false);
             $table->enum('type', ['sale', 'purchase'])->default('sale');
             $table->timestamps();
         });

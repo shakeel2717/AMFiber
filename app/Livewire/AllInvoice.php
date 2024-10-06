@@ -9,6 +9,7 @@ use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Exportable;
 use PowerComponents\LivewirePowerGrid\Facades\Filter;
+use PowerComponents\LivewirePowerGrid\Facades\Rule;
 use PowerComponents\LivewirePowerGrid\Footer;
 use PowerComponents\LivewirePowerGrid\Header;
 use PowerComponents\LivewirePowerGrid\PowerGrid;
@@ -77,6 +78,9 @@ final class AllInvoice extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
+            Column::make('Status', 'status')
+                ->toggleable(),
+
             Column::make('Created at', 'created_at')
                 ->sortable(),
 
@@ -100,6 +104,26 @@ final class AllInvoice extends PowerGridComponent
         $this->dispatch('success', status: 'Invoice Deleted successfully!');
     }
 
+    #[\Livewire\Attributes\On('pending')]
+    public function pending($rowId): void
+    {
+        $invoice = Invoice::findOrFail($rowId);
+        $invoice->status = false;
+        $invoice->save();
+
+        $this->dispatch('success', status: 'Invoice Marked as Pending!');
+    }
+
+    #[\Livewire\Attributes\On('complete')]
+    public function complete($rowId): void
+    {
+        $invoice = Invoice::findOrFail($rowId);
+        $invoice->status = true;
+        $invoice->save();
+
+        $this->dispatch('success', status: 'Invoice Marked as Complete!');
+    }
+
     public function actions(\App\Models\Invoice $row): array
     {
         return [
@@ -114,6 +138,19 @@ final class AllInvoice extends PowerGridComponent
                 ->class('btn btn-danger btn-sm')
                 ->dispatch('delete', ['rowId' => $row->id]),
 
+            Button::add('complete')
+                ->slot('Complete')
+                ->id()
+                ->class('btn btn-success btn-sm')
+                ->dispatch('complete', ['rowId' => $row->id]),
+
+            Button::add('pending')
+                ->slot('Pending')
+                ->id()
+                ->class('btn btn-secondary btn-sm')
+                ->dispatch('pending', ['rowId' => $row->id]),
+
+
             Button::add('print')
                 ->slot('Print')
                 ->class('btn btn-primary btn-sm')
@@ -122,15 +159,18 @@ final class AllInvoice extends PowerGridComponent
         ];
     }
 
-    /*
+
     public function actionRules($row): array
     {
-       return [
+        return [
             // Hide button delete for ID 1
-            Rule::button('delete')
-                ->when(fn($row) => $row->id === 1)
+            Rule::button('complete')
+                ->when(fn($row) => $row->status == 1)
+                ->hide(),
+
+            Rule::button('pending')
+                ->when(fn($row) => $row->status == 0)
                 ->hide(),
         ];
     }
-    */
 }
