@@ -44,6 +44,12 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt("asdfasdf")
         ]);
 
+        \App\Models\User::factory()->create([
+            'name' => 'Amir Mukhtar',
+            'email' => 'amirmukhtar68@gmail.com',
+            'password' => bcrypt("asdfasdf")
+        ]);
+
         // \App\Models\Party::factory()->create([
         //     'name' => 'Asan Webs',
         //     'phone' => '1234567890',
@@ -118,6 +124,5 @@ class DatabaseSeeder extends Seeder
         $plai->name = '3';
         $plai->price = '210';
         $plai->save();
-
     }
 }
