@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Invoice;
+use App\Models\Notification;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Button;
@@ -60,6 +61,7 @@ final class AllInvoice extends PowerGridComponent
             })
             ->addColumn('total_amount')
             ->addColumn('discount')
+            ->addColumn('status', fn(Invoice $model) => $model->status ? "Complete" : "Pending")
             ->addColumn('products', fn(Invoice $model) => $model->invoice_products->count())
             ->addColumn('created_at_formatted', fn(Invoice $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
@@ -79,7 +81,8 @@ final class AllInvoice extends PowerGridComponent
                 ->searchable(),
 
             Column::make('Status', 'status')
-                ->toggleable(),
+                ->sortable()
+                ->searchable(),
 
             Column::make('Created at', 'created_at')
                 ->sortable(),
@@ -111,6 +114,14 @@ final class AllInvoice extends PowerGridComponent
         $invoice->status = false;
         $invoice->save();
 
+        // adding notification
+        $notification = new Notification();
+        $notification->user_id = auth()->user()->id;
+        $notification->title = 'Invoice Marked as Pending';
+        $notification->body = auth()->user()->name . ' Marked Invoice as Pending. the Invoice ID is ' . $invoice->id;
+        $notification->redirect_url = route('invoice.show', ['invoice' => $invoice->id]);
+        $notification->save();
+
         $this->dispatch('success', status: 'Invoice Marked as Pending!');
     }
 
@@ -120,6 +131,14 @@ final class AllInvoice extends PowerGridComponent
         $invoice = Invoice::findOrFail($rowId);
         $invoice->status = true;
         $invoice->save();
+
+        // adding notification
+        $notification = new Notification();
+        $notification->user_id = auth()->user()->id;
+        $notification->title = 'Invoice Marked as Complete';
+        $notification->body = auth()->user()->name . ' Marked Invoice as Complete. the Invoice ID is ' . $invoice->id;
+        $notification->redirect_url = route('invoice.show', ['invoice' => $invoice->id]);
+        $notification->save();
 
         $this->dispatch('success', status: 'Invoice Marked as Complete!');
     }
