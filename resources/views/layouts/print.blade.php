@@ -161,8 +161,10 @@
 
         <div class="footer" style="display:flex; justify-content: space-between">
             <p>Thank you for your business!</p>
-            <p style="font-size: 11px; text-align: center; align-self:flex-end">Design and Developed by:
+            <p style="font-size: 11px; text-align: center; align-self:flex-end">Developed by:
                 <a href="https://asanwebs.com" target="_blank" class="opacity-75">ASANWEBS</a>
+                <br>
+                (Manage Business with Our Software! <br> WA: +923037702717)
             </p>
         </div>
 
@@ -188,7 +190,7 @@
                         })
                     })
                     .then(response => response
-                .json()) // Change to response.json() to parse the JSON response
+                        .json()) // Change to response.json() to parse the JSON response
                     .then(data => {
                         // Create a download link using the URL returned by the server
                         var downloadLink = document.createElement('a');
