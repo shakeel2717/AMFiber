@@ -24,6 +24,11 @@
                                 placeholder="Enter Amount you Received">
                         </div>
                         <div class="form-group">
+                            <label for="reduction">Reduction</label>
+                            <input type="text" name="reduction" id="reduction" class="form-control"
+                                placeholder="Enter extra discount for customer">
+                        </div>
+                        <div class="form-group">
                             <label for="payment_method">Payment Method</label>
                             <select name="payment_method" id="payment_method" class="form-control form-select">
                                 <option value="Cash" selected>Cash</option>

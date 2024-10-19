@@ -35,6 +35,7 @@ class PaymentController extends Controller
             'amount' => 'required|numeric',
             'payment_method' => 'required|string',
             'reference' => 'nullable|string',
+            'reduction' => 'nullable|numeric',
         ]);
 
         $payment = new Payment();
@@ -43,6 +44,15 @@ class PaymentController extends Controller
         $payment->payment_method = $validated['payment_method'];
         $payment->reference = $validated['reference'];
         $payment->save();
+
+        if ($validated['reduction'] > 0) {
+            $payment = new Payment();
+            $payment->party_id = $validated['customer_id'];
+            $payment->amount = $validated['reduction'];
+            $payment->payment_method = $validated['payment_method'];
+            $payment->reference = "Reduction Adjustment";
+            $payment->save();
+        }
 
         return redirect()->route('payment.index')->with('success', 'Payment created successfully');
     }
