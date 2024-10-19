@@ -11,7 +11,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="customer_id">Select Customer</label>
-                            <select name="customer_id" id="customer_id" class="form-control form-select">
+                            <select name="customer_id" id="customer_id" class="js-select2 form-control form-select">
                                 <option value="">Select a Customer</option>
                                 @foreach ($customers as $customer)
                                     <option value="{{ $customer->id }}">{{ $customer->name }}</option>
@@ -30,7 +30,7 @@
                         </div>
                         <div class="form-group">
                             <label for="payment_method">Payment Method</label>
-                            <select name="payment_method" id="payment_method" class="form-control form-select">
+                            <select name="payment_method" id="payment_method" class="js-select2 form-control form-select">
                                 <option value="Cash" selected>Cash</option>
                                 <option value="Bank">Bank</option>
                                 <option value="Mobicash">Mobicash</option>

@@ -3,7 +3,7 @@
         @csrf
         <div class="form-group">
             <label for="customer_id">Select Customer</label>
-            <select wire:model="selectedCustomer" name="customer_id" id="customer_id" class="form-control">
+            <select wire:model="selectedCustomer" name="customer_id" id="customer_id" class="js-select2 form-control">
                 <option value="">Select a Customer</option>
                 @foreach ($customers as $customer)
                     <option value="{{ $customer->id }}">{{ $customer->name }}</option>

@@ -3,7 +3,7 @@
         @csrf
         <div class="form-group">
             <label for="customer_id">Select Customer</label>
-            <select wire:model.live="selectedCustomer" name="customer_id" id="customer_id" class="form-control"
+            <select wire:model.live="selectedCustomer" name="customer_id" id="customer_id" class="js-select2 form-control"
                 wire:key="select-customer-{{ now() }}">
                 <option value="">Select a Customer</option>
                 @foreach ($customers as $customer)
@@ -17,7 +17,7 @@
                 <div class="col-6">
                     <div class="form-group">
                         <label for="product_id">Select Product</label>
-                        <select wire:model.live="selectedProduct" id="product_id" class="form-control"
+                        <select wire:model.live="selectedProduct" id="product_id" class="js-select2 form-control"
                             wire:key="select-product-{{ now() }}">
                             <option value="">Select a Product</option>
                             @foreach ($products as $product)
@@ -30,7 +30,7 @@
                 <div class="col-6">
                     <div class="form-group">
                         <label for="plai_id">Select Plai</label>
-                        <select wire:model.live="selectedPlai" id="plai_id" class="form-control"
+                        <select wire:model.live="selectedPlai" id="plai_id" class="js-select2 form-control"
                             wire:key="select-plai-{{ now() }}">
                             <option value="">Select a Plai</option>
                             @foreach ($plais as $plai)
