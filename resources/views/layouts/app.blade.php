@@ -11,12 +11,10 @@
     <meta name="author" content="">
     <meta name="robots" content="noindex, nofollow">
     <link rel="shortcut icon" href="/assets/media/favicons/favicon.png">
-    <link rel="stylesheet" href="/assets/js/plugins/select2/css/select2.min.css">
     <link rel="icon" type="image/png" sizes="192x192" href="/assets/media/favicons/favicon-192x192.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/media/favicons/apple-touch-icon-180x180.png">
     <link rel="stylesheet" id="css-main" href="/assets/css/dashmix.min.css">
     @vite('resources/js/app.js')
-    @livewireStyles
     <style>
         .form-group {
             margin-bottom: 15px;
@@ -298,14 +296,7 @@
     <script src="/assets/js/plugins/chart.js/chart.min.js"></script>
     <script src="/assets/js/pages/be_pages_dashboard.min.js"></script>
     <script src="/assets/js/custom.js"></script>
-    <script src="/assets/js/plugins/select2/js/select2.full.min.js"></script>
-    <script>
-        Dashmix.helpersOnLoad(['js-flatpickr', 'jq-datepicker', 'jq-maxlength', 'jq-select2', 'jq-rangeslider',
-            'jq-masked-inputs', 'jq-pw-strength'
-        ]);
-    </script>
     <x-alert />
-    @livewireScripts
 </body>
 
 </html>
