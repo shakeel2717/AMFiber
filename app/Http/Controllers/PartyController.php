@@ -34,7 +34,7 @@ class PartyController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|unique:parties',
             'address' => 'required',
             'type' => 'required',
         ]);
