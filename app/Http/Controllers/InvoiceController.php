@@ -50,8 +50,7 @@ class InvoiceController extends Controller
      */
     public function edit(Invoice $invoice)
     {
-        $pdf = Pdf::loadView('dashboard.invoice.show', ['invoice' => $invoice])->setPaper('a4');
-        return $pdf->download($invoice->party->name . '_invoice-' . $invoice->id . '.pdf');
+        return view('dashboard.invoice.edit', compact('invoice'));
     }
 
     /**

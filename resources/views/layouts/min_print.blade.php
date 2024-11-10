@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=50mm, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Thermal Invoice</title>
     <style>
         @media print {
@@ -61,20 +62,63 @@
             margin: 2px 0;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 
 <body>
     <div class="container" id="printable-content">
+        <div class="save-button">
+            <button id="download-invoice">Download as JPG</button>
+        </div>
         @yield('content')
     </div>
     <script>
-        // Function to automatically open the print dialog
-        function autoPrint() {
-            window.print();
-        }
+        // // Function to automatically open the print dialog
+        // function autoPrint() {
+        //     window.print();
+        // }
 
-        // Automatically call the print function on page load
-        window.onload = autoPrint;
+        // // Automatically call the print function on page load
+        // window.onload = autoPrint;
+    </script>
+    <script>
+        document.getElementById('download-invoice').addEventListener('click', function() {
+            // Hide this button
+            document.getElementById('download-invoice').style.display = 'none';
+            
+            html2canvas(document.getElementById('printable-content')).then(function(canvas) {
+                var imageData = canvas.toDataURL('image/jpeg');
+                
+                fetch('/save-image', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                .getAttribute('content')
+                        },
+                        body: JSON.stringify({
+                            image: imageData
+                        })
+                    })
+                    .then(response => response
+                        .json()) // Change to response.json() to parse the JSON response
+                    .then(data => {
+                        // Create a download link using the URL returned by the server
+                        var downloadLink = document.createElement('a');
+                        downloadLink.href = data.downloadUrl; // Use the URL from the response
+                        downloadLink.download = data.fileName; // Set a default filename
+                        document.body.appendChild(downloadLink);
+                        downloadLink.click(); // Trigger the download
+                        document.body.removeChild(downloadLink); // Clean up
+                    })
+                    .catch(error => {
+                        console.error('Error saving image:', error);
+                    });
+
+                // Show the button again after processing
+                document.getElementById('download-invoice').style.display = 'inline';
+            });
+        });
     </script>
 </body>
 

@@ -171,9 +171,14 @@ final class AllInvoice extends PowerGridComponent
 
 
             Button::add('print')
-                ->slot('Print')
+                ->slot('Print Mini')
                 ->class('btn btn-primary btn-sm')
                 ->route('invoice.show', ['invoice' => $row->id]),
+
+            Button::add('print')
+                ->slot('Print Full')
+                ->class('btn btn-primary btn-sm')
+                ->route('invoice.edit', ['invoice' => $row->id]),
 
         ];
     }
