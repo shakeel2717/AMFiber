@@ -39,7 +39,7 @@ final class AllInvoice extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return Invoice::query();
+        return Invoice::query()->latest();
     }
 
     public function relationSearch(): array
