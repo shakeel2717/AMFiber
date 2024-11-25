@@ -58,7 +58,7 @@
                         <tr  class="small-text">
                             <td>
                                 <img style="filter: grayscale(1);" src="{{ asset('products/' . $item->product->image) }}"
-                                    alt="Product image" width="100" height="150">
+                                    alt="Product image" width="60" height="100">
                             </td>
                             <td>
                                 <b>

@@ -15,6 +15,11 @@
             color: #333;
         }
 
+        table, tr, th, td {
+            border: 2px solid black !important;
+            font-weight: bold;
+        }
+
         .container {
             width: 148mm;
             min-height: 210mm;
