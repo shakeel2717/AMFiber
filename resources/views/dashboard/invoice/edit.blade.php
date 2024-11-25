@@ -11,7 +11,7 @@
 
         <div class="details">
             <table>
-                <tr>
+                <tr  class="small-text">
                     <th>Customer Detail:</th>
                     <td>
                         <b>{{ strtoupper($invoice->party->name) }}</b>
@@ -55,7 +55,7 @@
                     $totalSQFT = 0;
                     @endphp
                     @foreach ($invoice->invoice_products as $item)
-                        <tr>
+                        <tr  class="small-text">
                             <td>
                                 <img style="filter: grayscale(1);" src="{{ asset('products/' . $item->product->image) }}"
                                     alt="Product image" width="100" height="150">
@@ -85,40 +85,40 @@
                         <td></td>
                         <td></td>
                     </tr>
-                    <tr>
-                        <th style="text-align: right" colspan="5">Subtotal</th>
+                    <tr class="small-text">
+                        <th style="text-align: right;" colspan="5">Subtotal</th>
                         <th>Rs: {{ number_format($invoice->calculateSubtotal(), 2) }}</th>
                     </tr>
-                    <tr>
-                        <th style="text-align: right" colspan="5">Discount </th>
+                    <tr class="small-text">
+                        <th style="text-align: right;" colspan="5">Discount </th>
                         <th>- Rs: {{ number_format($invoice->calculateDiscount(), 2) }}</th>
                     </tr>
-                    <tr>
-                        <th style="text-align: right" colspan="5">Total After Discount</th>
+                    <tr class="small-text">
+                        <th style="text-align: right;" colspan="5">Total After Discount</th>
                         <th>Rs: {{ number_format($invoice->calculateSubtotal() - $invoice->calculateDiscount(), 2) }}
                         </th>
                     </tr>
-                    <tr>
-                        <th style="text-align: right" colspan="5">Advance Payment</th>
+                    <tr class="small-text">
+                        <th style="text-align: right;" colspan="5">Advance Payment</th>
                         <th>Rs: {{ number_format($invoice->advance, 2) }}</th>
                     </tr>
-                    <tr>
-                        <th style="text-align: right" colspan="5">Balance Due</th>
+                    <tr class="small-text">
+                        <th style="text-align: right;" colspan="5">Balance Due</th>
                         <th>Rs: {{ number_format($invoice->calculateGrandTotal(), 2) }}</th>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <div class="card">
-            <div class="card-title">Terms and Conditions</div>
+        <div class="">
+            <h5 class="" style="margin: 0">Terms and Conditions</h5>
             <div class="card-content">
-                <p>1. All Invoices are valid for 30 days from the date of issue.</p>
+                <p style="margin: 0">1. All Invoices are valid for 30 days from the date of issue.</p>
             </div>
         </div>
-        <div class="card">
-            <div class="card-title">Note</div>
-            <p class="note-text">Please review the invoice carefully. If you have any questions or need further
+        <div class="" style="margin-top: 10px">
+            <h5 class="" style="margin: 0">Note</h5>
+            <p class="note-text" style="margin: 0">Please review the invoice carefully. If you have any questions or need further
                 clarification, feel
                 free to contact us.</p>
         </div>

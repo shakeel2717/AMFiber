@@ -16,8 +16,8 @@
         }
 
         .container {
-            width: 210mm;
-            min-height: 297mm;
+            width: 148mm;
+            min-height: 210mm;
             margin: 20px auto;
             padding: 0 10px;
         }
@@ -31,12 +31,12 @@
         }
 
         .header img {
-            width: 150px;
+            width: 100px;
             height: auto;
         }
 
         .header h1 {
-            font-size: 24px;
+            font-size: 20px;
             margin: 0;
         }
 
@@ -86,13 +86,13 @@
         }
 
         .card-title {
-            font-size: 18px;
+            font-size: 14px;
             font-weight: bold;
             margin-bottom: 10px;
         }
 
         .card-content {
-            font-size: 14px;
+            font-size: 12px;
         }
 
         .highlighted-card {
@@ -133,7 +133,7 @@
         }
 
         .brand {
-            font-size: 2rem !important;
+            font-size: 1rem !important;
         }
 
         .save-button {
@@ -147,6 +147,20 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+        }
+
+        @media print {
+            .save-button {
+                display: none !important;
+            }
+        }
+
+        .card p{
+            font-size: 12px;
+        }
+
+        .small-text {
+            font-size: 10px;
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
