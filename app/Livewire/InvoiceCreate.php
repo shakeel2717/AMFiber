@@ -31,12 +31,38 @@ class InvoiceCreate extends Component
     public $advance = 0;
     public $discounted_amount;
     public $without_discounted_amount;
+    public $customerSearch = '';
 
     public function mount()
     {
-        $this->customers = \App\Models\Party::where('type', 'customer')->get();
+        $this->customers = Party::where('type', 'customer')->get();
         $this->products = \App\Models\Product::get();
         $this->plais = \App\Models\Plai::get();
+    }
+
+    public function updatedCustomerSearch()
+    {
+        if (!empty($this->customerSearch)) {
+            // Perform server-side search
+            $this->customers = Party::where('type', 'customer')
+                ->when($this->customerSearch, function ($query) {
+                    return $query->where(function ($q) {
+                        $q->where('name', 'like', '%' . $this->customerSearch . '%')
+                            ->orWhere('phone', 'like', '%' . $this->customerSearch . '%');
+                    });
+                })
+                ->limit(50) // Limit results to prevent overwhelming the select
+                ->get();
+        } else {
+            $this->customers = Party::where('type', 'customer')->get();
+        }
+    }
+
+    // Method to clear search and reset customers
+    public function clearCustomerSearch()
+    {
+        $this->customerSearch = '';
+        $this->customers = Party::where('type', 'customer')->get();
     }
 
     public function addProduct()

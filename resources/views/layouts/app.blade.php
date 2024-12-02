@@ -20,6 +20,7 @@
             margin-bottom: 15px;
         }
     </style>
+    @livewireStyles()
 </head>
 
 <body>
@@ -297,6 +298,7 @@
     <script src="/assets/js/pages/be_pages_dashboard.min.js"></script>
     <script src="/assets/js/custom.js"></script>
     <x-alert />
+    @livewireScripts()
 </body>
 
 </html>
