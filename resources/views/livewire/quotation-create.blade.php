@@ -13,7 +13,7 @@
                     placeholder="Search by name or phone"
                     wire:model.debounce.500ms="customerSearch">
                 <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button" wire:click="clearcustomerSearch">
+                    <button class="btn btn-outline-secondary" type="button" wire:click="clearCustomerSearch">
                         <i class="fa fa-times"></i>
                     </button>
                 </div>
