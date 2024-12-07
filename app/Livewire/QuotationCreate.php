@@ -31,22 +31,30 @@ class QuotationCreate extends Component
     }
     public function updatedCustomerSearch()
     {
-        if (!empty($this->customerSearch)) {
-            // Perform server-side search
-            $this->customers = Party::where('type', 'customer')
-                ->when($this->customerSearch, function ($query) {
-                    return $query->where(function ($q) {
-                        $q->where('name', 'like', '%' . $this->customerSearch . '%')
+        try {
+            if (!empty($this->customerSearch)) {
+                $this->customers = Party::where('type', 'customer')
+                    ->where(function ($query) {
+                        $query->where('name', 'like', '%' . $this->customerSearch . '%')
+                            ->orWhere('email', 'like', '%' . $this->customerSearch . '%')
                             ->orWhere('phone', 'like', '%' . $this->customerSearch . '%');
-                    });
-                })
-                ->limit(50) // Limit results to prevent overwhelming the select
-                ->get();
-        } else {
-            $this->customers = Party::where('type', 'customer')->get();
+                    })
+                    ->limit(50) // Limit results to prevent overwhelming the select
+                    ->get();
+            } else {
+                $this->customers = Party::where('type', 'customer')->get();
+            }
+    
+            // Automatically select the first customer if only one match is found
+            if ($this->customers->count() === 1) {
+                $this->selectedCustomer = $this->customers->first()->id;
+            }
+        } catch (\Exception $e) {
+            \Log::error('Error in customer search: ' . $e->getMessage());
+            $this->dispatch('error', 'An error occurred while searching for customers.');
         }
     }
-
+    
     // Method to clear search and reset customers
     public function clearCustomerSearch()
     {
