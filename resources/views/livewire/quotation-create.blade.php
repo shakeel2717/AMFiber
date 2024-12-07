@@ -1,7 +1,6 @@
 <div>
     <form>
         @csrf
-       
         <div class="form-group">
             <label for="customer_search">Search Customer</label>
             <span wire:loading>
@@ -14,7 +13,7 @@
                     placeholder="Search by name or phone"
                     wire:model.debounce.500ms="customerSearch">
                 <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button" wire:click="clearCustomerSearch">
+                    <button class="btn btn-outline-secondary" type="button" wire:click="clearcustomerSearch">
                         <i class="fa fa-times"></i>
                     </button>
                 </div>
@@ -25,16 +24,10 @@
             <select wire:model="selectedCustomer" name="customer_id" id="customer_id" class="js-select2 form-control">
                 <option value="">Select a Customer</option>
                 @foreach ($customers as $customer)
-                    <option value="{{ $customer->id }}">
-                        {{ $customer->name }} 
-                        @if($customer->email)
-                            ({{ $customer->email }})
-                        @endif
-                    </option>
+                <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                 @endforeach
             </select>
         </div>
-
 
         <fieldset class="border p-2 rounded">
             <legend>Item Details:</legend>
