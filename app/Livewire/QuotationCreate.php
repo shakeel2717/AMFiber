@@ -10,7 +10,6 @@ use Livewire\Component;
 
 class QuotationCreate extends Component
 {
-    public $customerSearch = '';
     public $width;
     public $height;
     public $specification;
@@ -27,38 +26,6 @@ class QuotationCreate extends Component
 
     public function mount()
     {
-        $this->customers = Party::where('type', 'customer')->get();
-    }
-    public function updatedCustomerSearch()
-    {
-        try {
-            if (!empty($this->customerSearch)) {
-                $this->customers = Party::where('type', 'customer')
-                    ->where(function ($query) {
-                        $query->where('name', 'like', '%' . $this->customerSearch . '%')
-                            ->orWhere('email', 'like', '%' . $this->customerSearch . '%')
-                            ->orWhere('phone', 'like', '%' . $this->customerSearch . '%');
-                    })
-                    ->limit(50) // Limit results to prevent overwhelming the select
-                    ->get();
-            } else {
-                $this->customers = Party::where('type', 'customer')->get();
-            }
-    
-            // Automatically select the first customer if only one match is found
-            if ($this->customers->count() === 1) {
-                $this->selectedCustomer = $this->customers->first()->id;
-            }
-        } catch (\Exception $e) {
-            \Log::error('Error in customer search: ' . $e->getMessage());
-            $this->dispatch('error', 'An error occurred while searching for customers.');
-        }
-    }
-    
-    // Method to clear search and reset customers
-    public function clearCustomerSearch()
-    {
-        $this->customerSearch = '';
         $this->customers = Party::where('type', 'customer')->get();
     }
 
@@ -162,6 +129,6 @@ class QuotationCreate extends Component
 
     public function render()
     {
-        return view('livewire.quotation-create', ['customers' => $this->customers]);
+        return view('livewire.quotation-create');
     }
 }

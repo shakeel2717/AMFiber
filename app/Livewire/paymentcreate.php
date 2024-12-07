@@ -15,15 +15,14 @@ class PaymentCreate extends Component
         if (!empty($this->customerSearch)) {
             // Perform server-side search
             $this->customers = Party::where('type', 'customer')
-                ->when($this->customerSearch, function ($query) {
-                    return $query->where(function ($q) {
-                        $q->where('name', 'like', '%' . $this->customerSearch . '%')
-                            ->orWhere('phone', 'like', '%' . $this->customerSearch . '%');
-                    });
+                ->where(function ($query) {
+                    $query->where('name', 'like', '%' . $this->customerSearch . '%')
+                          ->orWhere('phone', 'like', '%' . $this->customerSearch . '%');
                 })
                 ->limit(50) // Limit results to prevent overwhelming the select
                 ->get();
         } else {
+            // If search term is empty, fetch all customers
             $this->customers = Party::where('type', 'customer')->get();
         }
     }
@@ -34,6 +33,7 @@ class PaymentCreate extends Component
         $this->customerSearch = '';
         $this->customers = Party::where('type', 'customer')->get();
     }
+
     public function render()
     {
         return view('livewire.payment-create', ['customers' => $this->customers]); // Pass customers to the view
