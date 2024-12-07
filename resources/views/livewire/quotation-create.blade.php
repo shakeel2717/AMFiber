@@ -3,15 +3,26 @@
         @csrf
        
         <div class="form-group">
-            
-        <label for="customer_id">Select Customer</label>
-            <select 
-                wire:model.live="selectedCustomer" 
-                name="customer_id" 
-                id="customer_id" 
-                class="js-select2 form-control"
-                wire:key="select-customer-{{ now() }}"
-            >
+            <label for="customer_search">Search Customer</label>
+            <span wire:loading>
+                <i class="fa fa-spinner fa-spin"></i>
+            </span>
+            <div class="input-group mb-3">
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Search by name or phone"
+                    wire:model.debounce.500ms="customerSearch">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" wire:click="clearCustomerSearch">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="customer_id">Select Customer</label>
+            <select wire:model="selectedCustomer" name="customer_id" id="customer_id" class="js-select2 form-control">
                 <option value="">Select a Customer</option>
                 @foreach ($customers as $customer)
                     <option value="{{ $customer->id }}">
@@ -23,6 +34,7 @@
                 @endforeach
             </select>
         </div>
+
 
         <fieldset class="border p-2 rounded">
             <legend>Item Details:</legend>
