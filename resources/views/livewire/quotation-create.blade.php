@@ -2,11 +2,29 @@
     <form>
         @csrf
         <div class="form-group">
+            <label for="customer_search">Search Customer</label>
+            <span wire:loading>
+                <i class="fa fa-spinner fa-spin"></i>
+            </span>
+            <div class="input-group mb-3">
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Search by name or phone"
+                    wire:model.debounce.500ms="customerSearch">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" wire:click="clearCustomerSearch">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
             <label for="customer_id">Select Customer</label>
             <select wire:model="selectedCustomer" name="customer_id" id="customer_id" class="js-select2 form-control">
                 <option value="">Select a Customer</option>
                 @foreach ($customers as $customer)
-                    <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                 @endforeach
             </select>
         </div>
@@ -75,18 +93,18 @@
                 </thead>
                 <tbody>
                     @foreach ($selectedItems as $item)
-                        <tr>
-                            <td>{{ $item['size'] }}</td>
-                            <td>{{ $item['specification'] }}</td>
-                            <td>{{ $item['truss'] }}</td>
-                            <td>{{ $item['shed'] }}</td>
-                            <td>{{ $item['piller'] }}</td>
-                            <td>{{ $item['thickness'] }}</td>
-                            <td>Rs {{ number_format($item['total'], 2) }}</td>
-                            <td>
-                                <button type="button" wire:click="removeItem('{{ $item['id'] }}')" class="btn btn-danger btn-sm">Remove</button>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>{{ $item['size'] }}</td>
+                        <td>{{ $item['specification'] }}</td>
+                        <td>{{ $item['truss'] }}</td>
+                        <td>{{ $item['shed'] }}</td>
+                        <td>{{ $item['piller'] }}</td>
+                        <td>{{ $item['thickness'] }}</td>
+                        <td>Rs {{ number_format($item['total'], 2) }}</td>
+                        <td>
+                            <button type="button" wire:click="removeItem('{{ $item['id'] }}')" class="btn btn-danger btn-sm">Remove</button>
+                        </td>
+                    </tr>
                     @endforeach
                 </tbody>
             </table>
