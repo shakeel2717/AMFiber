@@ -7,19 +7,11 @@ use Livewire\Component;
 
 class PaymentCreate extends Component
 {
-    public $customerSearch = ''; // Search term
-    public $customers = []; // Initialize the customers array
-    
-    public function mount()
-    {
 
-        $this->customers = Party::where('type', 'customer')->get();
-        $this->products = \App\Models\Product::get();
-        $this->plais = \App\Models\Plai::get();
-    }
+    public $customerSearch = '';
+    public $selectedCustomer = '';
+    public $customers = [];
 
-
-    
     public function updatedCustomerSearch()
     {
         if (!empty($this->customerSearch)) {
@@ -44,10 +36,12 @@ class PaymentCreate extends Component
         $this->customerSearch = '';
         $this->customers = Party::where('type', 'customer')->get();
     }
-  
 
+   
     public function render()
     {
-        return view('livewire.payment-create', ['customers' => $this->customers]); // Pass customers to the view
+        return view('livewire.payment-create', [
+            'customers' => $this->customers,
+        ]);
     }
 }
