@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use App\Models\customer;
 use App\Models\Notification;
 use App\Models\Party;
 use App\Models\Quotation;
@@ -11,6 +10,7 @@ use Livewire\Component;
 
 class QuotationCreate extends Component
 {
+    public $customerSearch = '';
     public $width;
     public $height;
     public $specification;
@@ -29,9 +29,28 @@ class QuotationCreate extends Component
     {
         $this->customers = Party::where('type', 'customer')->get();
     }
- 
+    public function updatedCustomerSearch()
+    {
+        if (!empty($this->customerSearch)) {
+            // Perform server-side search
+            $this->customers = Party::where('type', 'customer')
+                ->where(function ($query) {
+                    $query->where('name', 'like', '%' . $this->customerSearch . '%')
+                        ->orWhere('phone', 'like', '%' . $this->customerSearch . '%');
+                })
+                ->limit(50) // Limit results to prevent overwhelming the select
+                ->get();
+        } else {
+            // If search term is empty, fetch all customers
+            $this->customers = Party::where('type', 'customer')->get();
+        }
+    }
 
-  
+    public function clearCustomerSearch()
+    {
+        $this->customerSearch = '';
+        $this->customers = Party::where('type', 'customer')->get();
+    }
 
     public function addItem()
     {
