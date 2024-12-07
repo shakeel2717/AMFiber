@@ -10,17 +10,16 @@
                 <input
                     type="text"
                     class="form-control"
-                    placeholder="Search by name, email, or phone"
-                    wire:model.live.debounce.500ms="customerSearch">
+                    placeholder="Search by name or phone"
+                    wire:model.debounce.500ms="customerSearch">
                 <div class="input-group-append">
-                    <button
-                        class="btn btn-outline-secondary"
-                        type="button"
-                        wire:click="clearCustomerSearch">
+                    <button class="btn btn-outline-secondary" type="button" wire:click="clearCustomerSearch">
                         <i class="fa fa-times"></i>
                     </button>
                 </div>
             </div>
+        </div>
+      
 
             <label for="customer_id">Select Customer</label>
             <select
