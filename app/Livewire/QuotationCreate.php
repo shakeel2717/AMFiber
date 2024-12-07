@@ -11,7 +11,6 @@ use Livewire\Component;
 
 class QuotationCreate extends Component
 {
-    public $customerSearch = '';
     public $width;
     public $height;
     public $specification;
@@ -32,20 +31,7 @@ class QuotationCreate extends Component
     }
  
 
-    public function updatedCustomerSearch()
-    {
-        // Get customers based on the search query (name or phone)
-        $this->customers = customer::where('name', 'like', '%' . $this->customerSearch . '%')
-            ->orWhere('phone', 'like', '%' . $this->customerSearch . '%')
-            ->get();
-    }
-
-    // Method to clear search and reset customers
-    public function clearCustomerSearch()
-    {
-        $this->customerSearch = '';
-        $this->customers = Party::where('type', 'customer')->get();
-    }
+  
 
     public function addItem()
     {
