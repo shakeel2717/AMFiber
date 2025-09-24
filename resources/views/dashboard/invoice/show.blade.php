@@ -1,6 +1,7 @@
 @extends('layouts.min_print')
 @section('content')
     <div>
+        @include('inc.logo')
         <div class="header">
             <h3 style="text-align: center;">Al-Mukhtar Fiber Glass House</h3>
             <p>Date: {{ $invoice->created_at->format('d-m-Y') }}</p>
@@ -45,7 +46,7 @@
         </div>
 
         <div class="totals">
-            <p><b>Total SQFT:</b> {{ number_format($totalSQFT,2) }}</p>
+            <p><b>Total SQFT:</b> {{ number_format($totalSQFT, 2) }}</p>
             <p><b>Subtotal:</b> Rs: {{ number_format($invoice->calculateSubtotal(), 2) }}</p>
             <p><b>Discount:</b> -Rs: {{ number_format($invoice->calculateDiscount(), 2) }}</p>
             <p><b>Total After Discount:</b> Rs:
