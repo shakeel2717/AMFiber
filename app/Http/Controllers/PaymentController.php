@@ -32,6 +32,7 @@ class PaymentController extends Controller
     {
         $validated = $request->validate([
             'customer_id' => 'required|exists:parties,id',
+            'invoice_id' => 'nullable|exists:invoices,id',
             'amount' => 'required|numeric',
             'payment_method' => 'required|string',
             'reference' => 'nullable|string',
@@ -40,6 +41,7 @@ class PaymentController extends Controller
 
         $payment = new Payment();
         $payment->party_id = $validated['customer_id'];
+        $payment->invoice_id = $validated['invoice_id'] ?? null;
         $payment->amount = $validated['amount'];
         $payment->payment_method = $validated['payment_method'];
         $payment->reference = $validated['reference'];
@@ -48,6 +50,7 @@ class PaymentController extends Controller
         if ($validated['reduction'] > 0) {
             $payment = new Payment();
             $payment->party_id = $validated['customer_id'];
+            $payment->invoice_id = $validated['invoice_id'] ?? null;
             $payment->amount = $validated['reduction'];
             $payment->payment_method = $validated['payment_method'];
             $payment->reference = "Reduction Adjustment";

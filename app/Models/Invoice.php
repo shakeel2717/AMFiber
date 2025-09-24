@@ -42,4 +42,9 @@ class Invoice extends Model
     {
         return $this->calculateSubtotal() - $this->calculateDiscount() - $this->advance;
     }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
 }

@@ -3,24 +3,37 @@
 namespace App\Livewire;
 
 use App\Models\Party;
+use App\Models\Invoice;
 use Livewire\Component;
 
 class PaymentCreate extends Component
 {
-
     public $customerSearch = '';
     public $selectedCustomer = '';
     public $customers = [];
+    public $invoices = [];
+    public $selectedInvoice = '';
 
     public function mount()
     {
         $this->customers = Party::where('type', 'customer')->get();
     }
 
+    public function updatedSelectedCustomer()
+    {
+        if ($this->selectedCustomer) {
+            $this->invoices = Invoice::where('customer_id', $this->selectedCustomer)
+                ->where('status', false) // Only unpaid invoices
+                ->get();
+        } else {
+            $this->invoices = [];
+        }
+        $this->selectedInvoice = '';
+    }
+
     public function updatedCustomerSearch()
     {
         if (!empty($this->customerSearch)) {
-            // Perform server-side search
             $this->customers = Party::where('type', 'customer')
                 ->when($this->customerSearch, function ($query) {
                     return $query->where(function ($q) {
@@ -28,20 +41,18 @@ class PaymentCreate extends Component
                             ->orWhere('phone', 'like', '%' . $this->customerSearch . '%');
                     });
                 })
-                ->limit(50) // Limit results to prevent overwhelming the select
+                ->limit(50)
                 ->get();
         } else {
             $this->customers = Party::where('type', 'customer')->get();
         }
     }
 
-    // Method to clear search and reset customers
     public function clearCustomerSearch()
     {
         $this->customerSearch = '';
         $this->customers = Party::where('type', 'customer')->get();
     }
-
 
     public function render()
     {

@@ -1,5 +1,4 @@
 <div class="">
-
     <div class="form-group">
         <label for="customer_search">Search Customer</label>
         <span wire:loading>
@@ -29,4 +28,25 @@
             @endforeach
         </select>
     </div>
+
+    @if($selectedCustomer && count($invoices) > 0)
+        <div class="form-group">
+            <label for="invoice_id">Select Invoice (Optional)</label>
+            <select wire:model="selectedInvoice" name="invoice_id" id="invoice_id" class="form-control">
+                <option value="">Select an Invoice (Optional)</option>
+                @foreach ($invoices as $invoice)
+                    <option value="{{ $invoice->id }}">
+                        Invoice #{{ $invoice->id }} - Rs {{ number_format($invoice->calculateGrandTotal(), 2) }}
+                        ({{ $invoice->created_at->format('d-M-Y') }})
+                    </option>
+                @endforeach
+            </select>
+        </div>
+    @endif
+
+    @if($selectedCustomer && count($invoices) == 0)
+        <div class="alert alert-info">
+            <small>No pending invoices found for this customer.</small>
+        </div>
+    @endif
 </div>

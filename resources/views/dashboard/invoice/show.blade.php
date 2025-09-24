@@ -52,8 +52,40 @@
             <p><b>Total After Discount:</b> Rs:
                 {{ number_format($invoice->calculateSubtotal() - $invoice->calculateDiscount(), 2) }}</p>
             <p><b>Advance Payment:</b> Rs: {{ number_format($invoice->advance, 2) }}</p>
-            <p><b>Balance Due:</b> Rs: {{ number_format($invoice->calculateGrandTotal(), 2) }}</p>
+
+            @php
+                $invoicePayments = $invoice->payments()->sum('amount');
+                $finalBalance = $invoice->calculateGrandTotal() - $invoicePayments;
+            @endphp
+
+            @if ($invoicePayments > 0)
+                <p><b>Payments Received:</b> Rs: {{ number_format($invoicePayments, 2) }}</p>
+                @if ($finalBalance > 0)
+                    <p><b>Remaining Balance:</b> Rs: {{ number_format($finalBalance, 2) }}</p>
+                @elseif($finalBalance < 0)
+                    <p><b>Overpaid Amount:</b> Rs: {{ number_format(abs($finalBalance), 2) }}</p>
+                @else
+                    <p><b>Status:</b> <span style="color: green;">PAID IN FULL</span></p>
+                @endif
+            @else
+                <p><b>Balance Due:</b> Rs: {{ number_format($invoice->calculateGrandTotal(), 2) }}</p>
+            @endif
         </div>
+
+        @if ($invoice->payments()->count() > 0)
+            <div class="payments-section" style="margin-top: 10px; border-top: 1px dashed #000; padding-top: 5px;">
+                <p><b>Payment History:</b></p>
+                @foreach ($invoice->payments as $payment)
+                    <p style="font-size: 8px; margin: 1px 0;">
+                        {{ $payment->created_at->format('d-M-Y') }} - Rs: {{ number_format($payment->amount, 2) }}
+                        ({{ $payment->payment_method }})
+                        @if ($payment->reference)
+                            - {{ $payment->reference }}
+                        @endif
+                    </p>
+                @endforeach
+            </div>
+        @endif
 
         <div class="footer">
             <p>Thank you for your business!</p>

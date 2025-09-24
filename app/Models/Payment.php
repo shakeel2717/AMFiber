@@ -15,4 +15,9 @@ class Payment extends Model
     {
         return $this->belongsTo(Party::class);
     }
+
+    public function invoice()
+    {
+        return $this->belongsTo(Invoice::class);
+    }
 }
