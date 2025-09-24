@@ -31,25 +31,12 @@ class ProductController extends Controller
         $validated = $request->validate([
             'name' => 'required',
             'description' => 'nullable',
-            'image' => 'nullable|image|max:10240',
         ]);
-
-        $filename = null;
-
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-
-            $destinationPath = public_path('products');
-
-            $filename = time() . '_' . $file->getClientOriginalName();
-
-            $file->move($destinationPath, $filename);
-        }
 
         $product = new Product();
         $product->name = $validated['name'];
         $product->description = $validated['description'];
-        $product->image = $filename;
+        $product->image = null;
         $product->save();
 
         return redirect()->route('product.index')->with('success', 'Product created successfully');

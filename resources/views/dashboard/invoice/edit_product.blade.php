@@ -7,9 +7,10 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="mb-4 text-start">
-                                <a href="{{ route('invoice.index') }}" class="btn btn-primary btn-sm">Back to All Invoice</a>
+                                <a href="{{ route('invoice.index') }}" class="btn btn-primary btn-sm">Back to All Invoices</a>
+                                <a href="{{ route('invoice.show', $invoice) }}" class="btn btn-secondary btn-sm">View Invoice</a>
                             </div>
-                            <livewire:all-product-invoices :invoice="$invoice"/>
+                            @livewire('invoice-edit', ['invoice' => $invoice])
                         </div>
                     </div>
                 </div>

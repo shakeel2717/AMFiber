@@ -15,10 +15,6 @@
                                 class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label for="image">Upload Product Image</label>
-                            <input type="file" name="image" id="image" class="form-control">
-                        </div>
-                        <div class="form-group">
                             <label for="description">Product Description</label>
                             <input type="text" name="description" id="description"
                                 placeholder="Enter Product Description" class="form-control">

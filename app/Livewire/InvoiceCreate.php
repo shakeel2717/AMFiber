@@ -65,67 +65,6 @@ class InvoiceCreate extends Component
         $this->customers = Party::where('type', 'customer')->get();
     }
 
-    public function addProduct()
-    {
-        if ($this->width_in_feet == '') {
-            $this->width_in_feet = 0;
-        } elseif ($this->width_in_inches == '') {
-            $this->width_in_inches = 0;
-        }
-
-        if ($this->height_in_feet == '') {
-            $this->height_in_feet = 0;
-        } elseif ($this->height_in_inches == '') {
-            $this->height_in_inches = 0;
-        }
-
-        if (
-            $this->selectedProduct
-            && ($this->width_in_feet > 0
-                || $this->width_in_inches > 0)
-            && ($this->height_in_feet > 0
-                || $this->height_in_inches > 0)
-        ) {
-            $product = $this->products->find($this->selectedProduct);
-
-            $totalWidthInFeet = $this->width_in_feet + ($this->width_in_inches / 12);
-            $totalHeightInFeet = $this->height_in_feet + ($this->height_in_inches / 12);
-
-            // Calculate square footage
-            $squareFeet = $this->totalSquareFeet();
-
-            // getting selected Plai
-            $plai = Plai::find($this->selectedPlai);
-
-            // Calculate total price (sqft * price * qty)
-            $totalPrice = $squareFeet * $plai->price * $this->productQty;
-
-            $this->selectedProducts[] = [
-                'id' => $product->id,
-                'name' => $product->name,
-                'plai_id' => $plai->id,
-                'width_in_feet' => $this->width_in_feet,
-                'width_in_inches' => $this->width_in_inches,
-                'height_in_feet' => $this->height_in_feet,
-                'height_in_inches' => $this->height_in_inches,
-                'qty' => $this->productQty,
-                'price' => $plai->price,
-                'total' => $totalPrice,
-            ];
-
-            // Store quantities
-            $this->quantities[$product->id] = $this->productQty;
-
-            // Reset inputs
-            $this->productQty = 1;
-
-            // Update total amount
-            $this->calculateTotal();
-        } else {
-            $this->dispatch('error', status: 'Please select product and enter dimensions');
-        }
-    }
-
     public function removeProduct($productId)
     {
         $this->selectedProducts = array_filter($this->selectedProducts, function ($product) use ($productId) {
@@ -138,16 +77,15 @@ class InvoiceCreate extends Component
 
     public function calculateTotal()
     {
-        if ($this->selectedPlai) {
-            $total = $this->totalAmount = array_sum(array_column($this->selectedProducts, 'total'));
-            $this->without_discounted_amount = $total;
-            if ($this->discount > 0) {
-                $this->discounted_amount = $this->discount;
-                $this->totalAmount = $total - $this->discount;
-            } else {
-                $this->discount = 0;
-                $this->totalAmount = array_sum(array_column($this->selectedProducts, 'total'));
-            }
+        $total = array_sum(array_column($this->selectedProducts, 'total'));
+        $this->without_discounted_amount = $total;
+
+        if ($this->discount > 0) {
+            $this->discounted_amount = $this->discount;
+            $this->totalAmount = $total - $this->discount;
+        } else {
+            $this->discounted_amount = 0;
+            $this->totalAmount = $total;
         }
     }
 
@@ -199,15 +137,88 @@ class InvoiceCreate extends Component
 
     public function totalSquareFeet()
     {
-        $totalWidthInInches = ($this->width_in_feet * 12) + $this->width_in_inches;
+        $widthFeet = is_numeric($this->width_in_feet) ? (float)$this->width_in_feet : 0;
+        $widthInches = is_numeric($this->width_in_inches) ? (float)$this->width_in_inches : 0;
+        $heightFeet = is_numeric($this->height_in_feet) ? (float)$this->height_in_feet : 0;
+        $heightInches = is_numeric($this->height_in_inches) ? (float)$this->height_in_inches : 0;
 
-        // Convert height to inches
-        $totalHeightInInches = ($this->height_in_feet * 12) + $this->height_in_inches;
-
-        // Calculate square inches
+        $totalWidthInInches = ($widthFeet * 12) + $widthInches;
+        $totalHeightInInches = ($heightFeet * 12) + $heightInches;
         $squareInches = $totalWidthInInches * $totalHeightInInches;
 
-        // Convert square inches to square feet
+        return $squareInches / 144;
+    }
+
+    public function addProduct()
+    {
+        // Convert empty strings to 0
+        $this->width_in_feet = is_numeric($this->width_in_feet) ? (float)$this->width_in_feet : 0;
+        $this->width_in_inches = is_numeric($this->width_in_inches) ? (float)$this->width_in_inches : 0;
+        $this->height_in_feet = is_numeric($this->height_in_feet) ? (float)$this->height_in_feet : 0;
+        $this->height_in_inches = is_numeric($this->height_in_inches) ? (float)$this->height_in_inches : 0;
+
+        if (
+            $this->selectedProduct
+            && ($this->width_in_feet > 0 || $this->width_in_inches > 0)
+            && ($this->height_in_feet > 0 || $this->height_in_inches > 0)
+        ) {
+            $product = $this->products->find($this->selectedProduct);
+
+            // Calculate square footage
+            $squareFeet = $this->totalSquareFeet();
+
+            // getting selected Plai
+            $plai = Plai::find($this->selectedPlai);
+
+            // Calculate total price (sqft * price * qty)
+            $totalPrice = $squareFeet * $plai->price * $this->productQty;
+
+            $this->selectedProducts[] = [
+                'id' => $product->id,
+                'name' => $product->name,
+                'plai_id' => $plai->id,
+                'width_in_feet' => $this->width_in_feet,
+                'width_in_inches' => $this->width_in_inches,
+                'height_in_feet' => $this->height_in_feet,
+                'height_in_inches' => $this->height_in_inches,
+                'qty' => $this->productQty,
+                'price' => $plai->price,
+                'total' => $totalPrice,
+            ];
+
+            // Store quantities
+            $this->quantities[$product->id] = $this->productQty;
+
+            // Reset inputs
+            $this->resetInputs();
+            $this->calculateTotal();
+        } else {
+            $this->dispatch('error', status: 'Please select product and enter dimensions');
+        }
+    }
+
+    private function resetInputs()
+    {
+        $this->selectedProduct = '';
+        $this->selectedPlai = '';
+        $this->productQty = 1;
+        $this->width_in_feet = '';
+        $this->width_in_inches = '';
+        $this->height_in_feet = '';
+        $this->height_in_inches = '';
+    }
+
+    private function calculateSquareFeetForProduct($product)
+    {
+        $widthFeet = is_numeric($product['width_in_feet']) ? (float)$product['width_in_feet'] : 0;
+        $widthInches = is_numeric($product['width_in_inches']) ? (float)$product['width_in_inches'] : 0;
+        $heightFeet = is_numeric($product['height_in_feet']) ? (float)$product['height_in_feet'] : 0;
+        $heightInches = is_numeric($product['height_in_inches']) ? (float)$product['height_in_inches'] : 0;
+
+        $totalWidthInInches = ($widthFeet * 12) + $widthInches;
+        $totalHeightInInches = ($heightFeet * 12) + $heightInches;
+        $squareInches = $totalWidthInInches * $totalHeightInInches;
+
         return $squareInches / 144;
     }
 
