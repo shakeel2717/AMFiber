@@ -20,6 +20,7 @@
                     <tr>
                         <th>Qty</th>
                         <th>Product</th>
+                        <th>Color</th>
                         <th>SQFT</th>
                         <th>Price</th>
                         <th>Total</th>
@@ -33,6 +34,7 @@
                         <tr>
                             <td>{{ $item->qty }}</td>
                             <td>{{ $item->product->name }}</td>
+                            <td>{{ $item->product->color ?? 'N/A' }}</td>
                             <td>{{ number_format($item->totalSquareFeet(), 2) }}</td>
                             <td>{{ number_format($item->price, 2) }}</td>
                             <td>{{ number_format($item->totalSquareFeet() * $item->price * $item->qty, 2) }}</td>

@@ -13,6 +13,7 @@ class Product extends Model
         'name',
         'description',
         'image',
+        'color',
     ];
 
     public function plai()

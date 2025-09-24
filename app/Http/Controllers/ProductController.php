@@ -31,11 +31,13 @@ class ProductController extends Controller
         $validated = $request->validate([
             'name' => 'required',
             'description' => 'nullable',
+            'color' => 'nullable|string|max:255',
         ]);
 
         $product = new Product();
         $product->name = $validated['name'];
         $product->description = $validated['description'];
+        $product->color = $validated['color'];
         $product->image = null;
         $product->save();
 

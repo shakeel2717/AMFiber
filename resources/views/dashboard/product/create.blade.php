@@ -20,6 +20,11 @@
                                 placeholder="Enter Product Description" class="form-control">
                         </div>
                         <div class="form-group">
+                            <label for="color">Product Color</label>
+                            <input type="text" name="color" id="color" placeholder="Enter Product Color"
+                                class="form-control">
+                        </div>
+                        <div class="form-group">
                             <button type="submit" class="btn btn-primary btn-sm">Add Product</button>
                         </div>
                     </form>

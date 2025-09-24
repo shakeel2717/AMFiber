@@ -41,9 +41,8 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Product</th>
                         <th>Description</th>
-
+                        <th>Color</th>
                         <th>Total SQFT</th>
                         <th>Quantity</th>
                         <th>Unit Price (per sqft)</th>
@@ -57,10 +56,6 @@
                     @foreach ($invoice->invoice_products as $item)
                         <tr  class="small-text">
                             <td>
-                                <img style="filter: grayscale(1);" src="{{ asset('products/' . $item->product->image) }}"
-                                    alt="Product image" width="60" height="100">
-                            </td>
-                            <td>
                                 <b>
                                     {{ $item->product->name }} <br>
                                     <span>Dimensions (W x H) <br></span>
@@ -68,6 +63,7 @@
                                     x{{ $item->height_in_feet . '\'.' . $item->height_in_inches }}"
                                 </b>
                             </td>
+                            <td>{{ $item->product->color ?? 'N/A' }}</td>
                             <td>{{ number_format($item->totalSquareFeet(), 2) }}</td>
                             <td>{{ $item->qty }}</td>
                             <td>Rs: {{ number_format($item->price, 2) }}</td>
@@ -102,13 +98,68 @@
                         <th style="text-align: right;" colspan="5">Advance Payment</th>
                         <th>Rs: {{ number_format($invoice->advance, 2) }}</th>
                     </tr>
-                    <tr class="small-text">
-                        <th style="text-align: right;" colspan="5">Balance Due</th>
-                        <th>Rs: {{ number_format($invoice->calculateGrandTotal(), 2) }}</th>
-                    </tr>
+
+                    @php
+                        $invoicePayments = $invoice->payments()->sum('amount');
+                        $finalBalance = $invoice->calculateGrandTotal() - $invoicePayments;
+                    @endphp
+
+                    @if($invoicePayments > 0)
+                        <tr class="small-text">
+                            <th style="text-align: right;" colspan="5">Payments Received</th>
+                            <th>Rs: {{ number_format($invoicePayments, 2) }}</th>
+                        </tr>
+                        @if($finalBalance > 0)
+                            <tr class="small-text">
+                                <th style="text-align: right;" colspan="5">Remaining Balance</th>
+                                <th>Rs: {{ number_format($finalBalance, 2) }}</th>
+                            </tr>
+                        @elseif($finalBalance < 0)
+                            <tr class="small-text">
+                                <th style="text-align: right;" colspan="5">Overpaid Amount</th>
+                                <th>Rs: {{ number_format(abs($finalBalance), 2) }}</th>
+                            </tr>
+                        @else
+                            <tr class="small-text">
+                                <th style="text-align: right;" colspan="5">Status</th>
+                                <th style="color: green;">PAID IN FULL</th>
+                            </tr>
+                        @endif
+                    @else
+                        <tr class="small-text">
+                            <th style="text-align: right;" colspan="6">Balance Due</th>
+                            <th>Rs: {{ number_format($invoice->calculateGrandTotal(), 2) }}</th>
+                        </tr>
+                    @endif
                 </tbody>
             </table>
         </div>
+
+        @if($invoice->payments()->count() > 0)
+            <div style="margin-top: 15px;">
+                <h5 style="margin: 0">Payment History</h5>
+                <table style="width: 100%; margin-top: 5px;">
+                    <thead>
+                        <tr class="small-text">
+                            <th style="border: 1px solid black; padding: 5px;">Date</th>
+                            <th style="border: 1px solid black; padding: 5px;">Amount</th>
+                            <th style="border: 1px solid black; padding: 5px;">Method</th>
+                            <th style="border: 1px solid black; padding: 5px;">Reference</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($invoice->payments as $payment)
+                            <tr class="small-text">
+                                <td style="border: 1px solid black; padding: 5px;">{{ $payment->created_at->format('d-M-Y') }}</td>
+                                <td style="border: 1px solid black; padding: 5px;">Rs: {{ number_format($payment->amount, 2) }}</td>
+                                <td style="border: 1px solid black; padding: 5px;">{{ $payment->payment_method }}</td>
+                                <td style="border: 1px solid black; padding: 5px;">{{ $payment->reference ?? 'N/A' }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @endif
 
         <div class="">
             <h5 class="" style="margin: 0">Terms and Conditions</h5>

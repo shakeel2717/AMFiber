@@ -53,18 +53,12 @@ final class AllProduct extends PowerGridComponent
         return PowerGrid::columns()
             ->addColumn('id')
             ->addColumn('name')
+            ->addColumn('color')
 
             /** Example of custom column using a closure **/
             ->addColumn('name_lower', fn(Product $model) => strtolower(e($model->name)))
 
             ->addColumn('description')
-            ->addColumn('image_url', function (Product $model) {
-                if ($model->image) {
-                    return '<img src="' . asset('products/' . $model->image) . '" width="100" height="100">';
-                } else {
-                    return "No Image";
-                }
-            })
             ->addColumn('price')
             ->addColumn('created_at_formatted', fn(Product $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
@@ -83,7 +77,10 @@ final class AllProduct extends PowerGridComponent
                 ->editOnClick()
                 ->searchable(),
 
-            Column::make('Image', 'image_url'),
+            Column::make('Color', 'color')
+                ->sortable()
+                ->editOnClick()
+                ->searchable(),
 
             Column::make('Created at', 'created_at')
                 ->sortable(),
