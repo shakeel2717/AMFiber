@@ -151,11 +151,12 @@ class InvoiceCreate extends Component
 
     public function addProduct()
     {
-        // Convert empty strings to 0
+        // Convert empty strings to 0, ensure productQty is at least 1
         $this->width_in_feet = is_numeric($this->width_in_feet) ? (float)$this->width_in_feet : 0;
         $this->width_in_inches = is_numeric($this->width_in_inches) ? (float)$this->width_in_inches : 0;
         $this->height_in_feet = is_numeric($this->height_in_feet) ? (float)$this->height_in_feet : 0;
         $this->height_in_inches = is_numeric($this->height_in_inches) ? (float)$this->height_in_inches : 0;
+        $this->productQty = is_numeric($this->productQty) && $this->productQty > 0 ? (int)$this->productQty : 1;
 
         if (
             $this->selectedProduct

@@ -109,7 +109,7 @@
                         <input type="number" min="1" wire:model.live="productQty" class="form-control" placeholder="Quantity">
                     </div>
                 </div>
-                <div class="col-6 d-flex align-items-end">
+                <div class="col-12 col-md-6 d-flex align-items-end">
                     @if ($selectedProduct && $selectedPlai && $productQty > 0 && $selectedCustomer)
                         <div class="form-group w-100">
                             <button type="button" wire:click="addProduct" class="btn btn-primary btn-block">
