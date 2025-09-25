@@ -7,16 +7,25 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Thermal Invoice</title>
     <style>
-        @media print {
-            @page {
-                margin: 0;
-                size: 58mm auto;
-                /* Auto height based on content */
-            }
+        @page {
+            size: 80mm 210mm;
+            margin: 0;
+        }
 
+        @media print {
+
+            html,
             body {
+                font-family: 'Courier New', monospace;
+                font-size: 9px;
                 margin: 0;
                 padding: 0;
+                width: 80mm;
+                line-height: 1.2;
+                font-weight: bold;
+                color: #000;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
 
             body * {
@@ -32,12 +41,11 @@
                 position: absolute;
                 top: 0;
                 left: 0;
-                width: 100%;
+                width: 80mm;
                 margin: 0;
                 padding: 0;
             }
 
-            /* Hide download button in print */
             .save-button {
                 display: none !important;
             }
@@ -45,21 +53,22 @@
 
         body {
             font-family: 'Courier New', monospace;
-            /* Better for thermal printers */
             font-size: 9px;
             margin: 0;
             padding: 0;
-            width: 58mm;
+            width: 80mm;
             line-height: 1.2;
         }
 
         .container {
-            width: 58mm;
+            width: 80mm;
+            max-height: 210mm;
             margin: 0;
             padding: 2mm;
             box-sizing: border-box;
         }
 
+        /* Rest of your styles remain the same */
         .header,
         .details,
         .products,
@@ -109,7 +118,6 @@
             padding-top: 2mm;
         }
 
-        /* Ensure no extra space at bottom */
         .container::after {
             content: "";
             display: block;
@@ -131,7 +139,6 @@
             cursor: pointer;
         }
 
-        /* Thermal printer specific styles */
         .thermal-line {
             border-bottom: 1px dashed #000;
             margin: 2px 0;
@@ -179,14 +186,31 @@
             width: 100%;
         }
 
-        @media print {
-            .thermal-logo {
-                max-width: 35mm;
-                max-height: 12mm;
-            }
+        /* Make all text bold and darker for thermal printer */
+        * {
+            font-weight: bold !important;
+            color: #000 !important;
+        }
 
-            .company-name h1 {
-                font-size: 9px;
+        p,
+        td,
+        th,
+        span,
+        div,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: bold !important;
+            text-shadow: 0.5px 0.5px 0 #000;
+        }
+
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
         }
     </style>
@@ -199,7 +223,7 @@
             <button id="download-invoice">Download as JPG</button>
             <button id="print-invoice" onclick="window.print()">Print</button>
         </div>
-        @yield('content') 
+        @yield('content')
     </div>
 
     <script>
