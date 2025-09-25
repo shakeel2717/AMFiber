@@ -190,7 +190,7 @@ class InvoiceCreate extends Component
             $this->quantities[$product->id] = $this->productQty;
 
             // Reset inputs
-            $this->resetInputs();
+            // $this->resetInputs();
             $this->calculateTotal();
         } else {
             $this->dispatch('error', status: 'Please select product and enter dimensions');
