@@ -78,7 +78,7 @@
             </div>
 
             <div class="row">
-                <div class="col-6">
+                <div class="col-md-6">
                     <label>Width (Feet & Inches)</label>
                     <div class="input-group mb-3">
                         <input type="number" min="0" step="0.01" wire:model.live="width_in_feet" 
@@ -89,7 +89,7 @@
                         <div class="input-group-text">in</div>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <label>Height (Feet & Inches)</label>
                     <div class="input-group mb-3">
                         <input type="number" min="0" step="0.01" wire:model.live="height_in_feet" 
@@ -103,7 +103,7 @@
             </div>
 
             <div class="row">
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     <div class="form-group">
                         <label for="qty">Quantity</label>
                         <input type="number" min="1" wire:model.live="productQty" class="form-control" placeholder="Quantity">
