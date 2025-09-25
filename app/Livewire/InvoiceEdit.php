@@ -98,7 +98,7 @@ class InvoiceEdit extends Component
                 'total' => $totalPrice,
             ];
 
-            $this->resetInputs();
+            // $this->resetInputs();
             $this->calculateTotal();
         } else {
             $this->dispatch('error', status: 'Please select product and enter dimensions');
