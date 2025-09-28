@@ -3,7 +3,6 @@
     <div>
         @include('inc.logo')
         <div class="header">
-            <h3 style="text-align: center;">Al-Mukhtar Fiber Glass House</h3>
             <p>Date: {{ $invoice->created_at->format('d-m-Y') }}</p>
             <p>Invoice #: {{ $invoice->id }}</p>
         </div>
@@ -90,7 +89,10 @@
         @endif
 
         <div class="footer">
-            <p>Thank you for your business!</p>
+            <p><b>Contact Numbers:</b></p>
+            <p>03037489701 - 03047463506</p>
+            <p>03008776701 - 03008777221</p>
+            <p>03005561884 - 03048675586</p>
         </div>
     </div>
 @endsection
