@@ -149,8 +149,8 @@
         }
 
         .thermal-logo {
-            max-width: 40mm;
-            max-height: 15mm;
+            max-width: 60mm;
+            max-height: 20mm;
             height: auto;
             width: auto;
         }
@@ -198,13 +198,15 @@
         h4,
         h5,
         h6 {
-            font-weight: 900 !important;
+            font-weight: 600 !important;
+            color: #444 !important;
             
         }
-
+        
         b,
         strong {
             font-weight: 900 !important;
+            color: #444 !important;
             
         }
 
