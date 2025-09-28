@@ -17,7 +17,7 @@
             html,
             body {
                 font-family: 'Arial Black', 'Arial', sans-serif;
-                font-size: 13px;
+                font-size: 14px;
                 margin: 0;
                 padding: 0;
                 width: 80mm;
@@ -53,7 +53,7 @@
 
         body {
             font-family: 'Arial Black', 'Arial', sans-serif;
-            font-size: 13px;
+            font-size: 14px;
             margin: 0;
             padding: 0;
             width: 80mm;
@@ -80,7 +80,7 @@
 
         .header h3 {
             margin: 0;
-            font-size: 13px;
+            font-size: 14px;
             text-align: center;
             font-weight: 400;
         }
@@ -88,7 +88,7 @@
         .products table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 13px;
+            font-size: 14px;
             margin: 2mm 0;
             font-weight: 400;
         }
@@ -105,13 +105,13 @@
         .products table th {
             font-weight: 400;
             border-bottom: 2px solid #000;
-            font-size: 13px;
+            font-size: 14px;
         }
 
         .totals p,
         .details p {
             margin: 1.5px 0;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 400;
         }
 
@@ -120,7 +120,7 @@
             margin-top: 4mm;
             border-top: 1px dashed #000;
             padding-top: 2mm;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 400;
         }
 
