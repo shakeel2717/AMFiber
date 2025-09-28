@@ -17,7 +17,7 @@ class InvoiceCreate extends Component
     public $selectedPlai;
     public $selectedCustomer;
     public $selectedProduct;
-    public $productQty = 1;
+    public int $productQty = 1;
     public $width_in_feet = '';
     public $width_in_inches = '';
     public $height_in_feet = '';
@@ -72,6 +72,11 @@ class InvoiceCreate extends Component
         });
 
         $this->calculateTotal();
+    }
+
+    public function updatedProductQty()
+    {
+        $this->productQty = is_numeric($this->productQty) && $this->productQty > 0 ? (int)$this->productQty : 1;
     }
 
 
@@ -137,10 +142,10 @@ class InvoiceCreate extends Component
 
     public function totalSquareFeet()
     {
-        $widthFeet = is_numeric($this->width_in_feet) ? (float)$this->width_in_feet : 0;
-        $widthInches = is_numeric($this->width_in_inches) ? (float)$this->width_in_inches : 0;
-        $heightFeet = is_numeric($this->height_in_feet) ? (float)$this->height_in_feet : 0;
-        $heightInches = is_numeric($this->height_in_inches) ? (float)$this->height_in_inches : 0;
+        $widthFeet = is_numeric($this->width_in_feet) && $this->width_in_feet !== '' ? (float)$this->width_in_feet : 0;
+        $widthInches = is_numeric($this->width_in_inches) && $this->width_in_inches !== '' ? (float)$this->width_in_inches : 0;
+        $heightFeet = is_numeric($this->height_in_feet) && $this->height_in_feet !== '' ? (float)$this->height_in_feet : 0;
+        $heightInches = is_numeric($this->height_in_inches) && $this->height_in_inches !== '' ? (float)$this->height_in_inches : 0;
 
         $totalWidthInInches = ($widthFeet * 12) + $widthInches;
         $totalHeightInInches = ($heightFeet * 12) + $heightInches;
@@ -152,10 +157,10 @@ class InvoiceCreate extends Component
     public function addProduct()
     {
         // Convert empty strings to 0, ensure productQty is at least 1
-        $this->width_in_feet = is_numeric($this->width_in_feet) ? (float)$this->width_in_feet : 0;
-        $this->width_in_inches = is_numeric($this->width_in_inches) ? (float)$this->width_in_inches : 0;
-        $this->height_in_feet = is_numeric($this->height_in_feet) ? (float)$this->height_in_feet : 0;
-        $this->height_in_inches = is_numeric($this->height_in_inches) ? (float)$this->height_in_inches : 0;
+        $this->width_in_feet = (is_numeric($this->width_in_feet) && $this->width_in_feet !== '') ? (float)$this->width_in_feet : 0;
+        $this->width_in_inches = (is_numeric($this->width_in_inches) && $this->width_in_inches !== '') ? (float)$this->width_in_inches : 0;
+        $this->height_in_feet = (is_numeric($this->height_in_feet) && $this->height_in_feet !== '') ? (float)$this->height_in_feet : 0;
+        $this->height_in_inches = (is_numeric($this->height_in_inches) && $this->height_in_inches !== '') ? (float)$this->height_in_inches : 0;
         $this->productQty = is_numeric($this->productQty) && $this->productQty > 0 ? (int)$this->productQty : 1;
 
         if (
