@@ -16,13 +16,13 @@
 
             html,
             body {
-                font-family: 'Courier New', monospace;
-                font-size: 9px;
+                font-family: 'Arial Black', 'Arial', sans-serif;
+                font-size: 11px;
                 margin: 0;
                 padding: 0;
                 width: 80mm;
-                line-height: 1.2;
-                font-weight: bold;
+                line-height: 1.3;
+                font-weight: 900;
                 color: #000;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
@@ -52,12 +52,13 @@
         }
 
         body {
-            font-family: 'Courier New', monospace;
-            font-size: 9px;
+            font-family: 'Arial Black', 'Arial', sans-serif;
+            font-size: 11px;
             margin: 0;
             padding: 0;
             width: 80mm;
-            line-height: 1.2;
+            line-height: 1.3;
+            font-weight: 900;
         }
 
         .container {
@@ -68,61 +69,59 @@
             box-sizing: border-box;
         }
 
-        /* Rest of your styles remain the same */
         .header,
         .details,
         .products,
         .totals,
         .footer {
-            margin: 1mm 0;
+            margin: 1.5mm 0;
             padding: 0;
         }
 
         .header h3 {
             margin: 0;
-            font-size: 11px;
+            font-size: 13px;
             text-align: center;
-            font-weight: bold;
+            font-weight: 900;
         }
 
         .products table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 8px;
+            font-size: 10px;
             margin: 2mm 0;
+            font-weight: 900;
         }
 
         .products table th,
         .products table td {
             border: none;
             border-bottom: 1px dashed #000;
-            padding: 1px 2px;
+            padding: 1.5px 3px;
             text-align: left;
+            font-weight: 900;
         }
 
         .products table th {
-            font-weight: bold;
-            border-bottom: 1px solid #000;
+            font-weight: 900;
+            border-bottom: 2px solid #000;
+            font-size: 10px;
         }
 
         .totals p,
         .details p {
-            margin: 1px 0;
-            font-size: 8px;
+            margin: 1.5px 0;
+            font-size: 10px;
+            font-weight: 900;
         }
 
         .footer {
             text-align: center;
-            margin-top: 3mm;
+            margin-top: 4mm;
             border-top: 1px dashed #000;
             padding-top: 2mm;
-        }
-
-        .container::after {
-            content: "";
-            display: block;
-            height: 0;
-            clear: both;
+            font-size: 10px;
+            font-weight: 900;
         }
 
         .save-button {
@@ -130,36 +129,19 @@
         }
 
         .save-button button {
-            padding: 5px 10px;
-            font-size: 10px;
+            padding: 6px 12px;
+            font-size: 12px;
             background-color: #007bff;
             color: white;
             border: none;
             border-radius: 3px;
             cursor: pointer;
-        }
-
-        .thermal-line {
-            border-bottom: 1px dashed #000;
-            margin: 2px 0;
-            padding-bottom: 2px;
-        }
-
-        .bold {
-            font-weight: bold;
-        }
-
-        .center {
-            text-align: center;
-        }
-
-        .right {
-            text-align: right;
+            font-weight: 900;
         }
 
         .thermal-header {
             text-align: center;
-            margin-bottom: 3mm;
+            margin-bottom: 4mm;
         }
 
         .logo-section {
@@ -174,10 +156,10 @@
         }
 
         .company-name h1 {
-            font-size: 10px;
-            font-weight: bold;
+            font-size: 12px;
+            font-weight: 900;
             margin: 1mm 0;
-            line-height: 1.1;
+            line-height: 1.2;
         }
 
         .thermal-line {
@@ -186,9 +168,22 @@
             width: 100%;
         }
 
-        /* Make all text bold and darker for thermal printer */
+        .payments-section {
+            font-size: 9px;
+            margin-top: 2mm;
+            border-top: 1px dashed #000;
+            padding-top: 1mm;
+        }
+
+        .payments-section p {
+            font-size: 9px;
+            margin: 1px 0;
+            font-weight: 900;
+        }
+
+        /* Enhanced bold styling for thermal printer */
         * {
-            font-weight: bold !important;
+            font-weight: 900 !important;
             color: #000 !important;
         }
 
@@ -203,8 +198,14 @@
         h4,
         h5,
         h6 {
-            font-weight: bold !important;
-            text-shadow: 0.5px 0.5px 0 #000;
+            font-weight: 900 !important;
+            text-shadow: 0.3px 0.3px 0 #000, -0.3px -0.3px 0 #000, 0.3px -0.3px 0 #000, -0.3px 0.3px 0 #000;
+        }
+
+        b,
+        strong {
+            font-weight: 900 !important;
+            text-shadow: 0.5px 0.5px 0 #000, -0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000;
         }
 
         @media print {
