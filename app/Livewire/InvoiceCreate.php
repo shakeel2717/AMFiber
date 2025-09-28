@@ -74,11 +74,6 @@ class InvoiceCreate extends Component
         $this->calculateTotal();
     }
 
-    public function updatedProductQty()
-    {
-        $this->productQty = is_numeric($this->productQty) && $this->productQty > 0 ? (int)$this->productQty : 1;
-    }
-
 
     public function calculateTotal()
     {
