@@ -18,7 +18,7 @@ class InvoiceEdit extends Component
     public $plais;
     public $selectedPlai;
     public $selectedProduct;
-    public $productQty = 1;
+    public int $productQty = 1;
     public $width_in_feet = '';
     public $width_in_inches = '';
     public $height_in_feet = '';
