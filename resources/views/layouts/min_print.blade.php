@@ -22,7 +22,7 @@
                 padding: 0;
                 width: 80mm;
                 line-height: 1.3;
-                font-weight: 900;
+                font-weight: 400;
                 color: #000;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
@@ -58,7 +58,7 @@
             padding: 0;
             width: 80mm;
             line-height: 1.3;
-            font-weight: 900;
+            font-weight: 400;
         }
 
         .container {
@@ -82,7 +82,7 @@
             margin: 0;
             font-size: 13px;
             text-align: center;
-            font-weight: 900;
+            font-weight: 400;
         }
 
         .products table {
@@ -90,7 +90,7 @@
             border-collapse: collapse;
             font-size: 13px;
             margin: 2mm 0;
-            font-weight: 900;
+            font-weight: 400;
         }
 
         .products table th,
@@ -99,11 +99,11 @@
             border-bottom: 1px dashed #000;
             padding: 1.5px 3px;
             text-align: left;
-            font-weight: 900;
+            font-weight: 400;
         }
 
         .products table th {
-            font-weight: 900;
+            font-weight: 400;
             border-bottom: 2px solid #000;
             font-size: 13px;
         }
@@ -112,7 +112,7 @@
         .details p {
             margin: 1.5px 0;
             font-size: 13px;
-            font-weight: 900;
+            font-weight: 400;
         }
 
         .footer {
@@ -121,7 +121,7 @@
             border-top: 1px dashed #000;
             padding-top: 2mm;
             font-size: 13px;
-            font-weight: 900;
+            font-weight: 400;
         }
 
         .save-button {
@@ -136,7 +136,7 @@
             border: none;
             border-radius: 3px;
             cursor: pointer;
-            font-weight: 900;
+            font-weight: 400;
         }
 
         .thermal-header {
@@ -157,7 +157,7 @@
 
         .company-name h1 {
             font-size: 15px;
-            font-weight: 900;
+            font-weight: 400;
             margin: 1mm 0;
             line-height: 1.2;
         }
@@ -178,12 +178,12 @@
         .payments-section p {
             font-size: 12px;
             margin: 1px 0;
-            font-weight: 900;
+            font-weight: 400;
         }
 
         /* Enhanced bold styling for thermal printer */
         * {
-            font-weight: 900 !important;
+            font-weight: 400 !important;
             color: #000 !important;
         }
 
@@ -199,14 +199,14 @@
         h5,
         h6 {
             font-weight: 600 !important;
-            color: #444 !important;
+            color: #222 !important;
             
         }
         
         b,
         strong {
-            font-weight: 900 !important;
-            color: #444 !important;
+            font-weight: 400 !important;
+            color: #222 !important;
             
         }
 
