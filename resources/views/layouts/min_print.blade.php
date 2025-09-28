@@ -199,13 +199,13 @@
         h5,
         h6 {
             font-weight: 900 !important;
-            text-shadow: 0.3px 0.3px 0 #000, -0.3px -0.3px 0 #000, 0.3px -0.3px 0 #000, -0.3px 0.3px 0 #000;
+            
         }
 
         b,
         strong {
             font-weight: 900 !important;
-            text-shadow: 0.5px 0.5px 0 #000, -0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000;
+            
         }
 
         @media print {
