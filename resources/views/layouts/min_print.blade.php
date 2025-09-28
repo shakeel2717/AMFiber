@@ -17,7 +17,7 @@
             html,
             body {
                 font-family: 'Arial Black', 'Arial', sans-serif;
-                font-size: 11px;
+                font-size: 13px;
                 margin: 0;
                 padding: 0;
                 width: 80mm;
@@ -53,7 +53,7 @@
 
         body {
             font-family: 'Arial Black', 'Arial', sans-serif;
-            font-size: 11px;
+            font-size: 13px;
             margin: 0;
             padding: 0;
             width: 80mm;
@@ -88,7 +88,7 @@
         .products table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 10px;
+            font-size: 13px;
             margin: 2mm 0;
             font-weight: 900;
         }
@@ -105,13 +105,13 @@
         .products table th {
             font-weight: 900;
             border-bottom: 2px solid #000;
-            font-size: 10px;
+            font-size: 13px;
         }
 
         .totals p,
         .details p {
             margin: 1.5px 0;
-            font-size: 10px;
+            font-size: 13px;
             font-weight: 900;
         }
 
@@ -120,7 +120,7 @@
             margin-top: 4mm;
             border-top: 1px dashed #000;
             padding-top: 2mm;
-            font-size: 10px;
+            font-size: 13px;
             font-weight: 900;
         }
 
@@ -130,7 +130,7 @@
 
         .save-button button {
             padding: 6px 12px;
-            font-size: 12px;
+            font-size: 15px;
             background-color: #007bff;
             color: white;
             border: none;
@@ -156,7 +156,7 @@
         }
 
         .company-name h1 {
-            font-size: 12px;
+            font-size: 15px;
             font-weight: 900;
             margin: 1mm 0;
             line-height: 1.2;
@@ -169,14 +169,14 @@
         }
 
         .payments-section {
-            font-size: 9px;
+            font-size: 12px;
             margin-top: 2mm;
             border-top: 1px dashed #000;
             padding-top: 1mm;
         }
 
         .payments-section p {
-            font-size: 9px;
+            font-size: 12px;
             margin: 1px 0;
             font-weight: 900;
         }
