@@ -200,14 +200,14 @@
         h6 {
             font-weight: 900 !important;
             color: #000 !important;
-            
+
         }
-        
+
         b,
         strong {
             font-weight: 900 !important;
             color: #000 !important;
-            
+
         }
 
         @media print {
@@ -242,11 +242,13 @@
             document.querySelector('.save-button').style.display = 'none';
 
             html2canvas(document.getElementById('printable-content'), {
-                width: 220, // 58mm = ~220px
+                width: document.getElementById('printable-content').scrollWidth, // Changed from 220
                 height: document.getElementById('printable-content').scrollHeight,
-                scale: 2
+                scale: 3, // Increased from 2 for better quality
+                useCORS: true,
+                backgroundColor: '#ffffff'
             }).then(function(canvas) {
-                var imageData = canvas.toDataURL('image/jpeg');
+                var imageData = canvas.toDataURL('image/jpeg', 1.0);
 
                 fetch('/save-image', {
                         method: 'POST',
