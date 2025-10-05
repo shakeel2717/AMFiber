@@ -102,6 +102,11 @@ final class AllInvoice extends PowerGridComponent
     public function delete($rowId): void
     {
         $invoice = Invoice::findOrFail($rowId);
+
+        // Delete all payments associated with this invoice first
+        $invoice->payments()->delete();
+
+        // Now delete the invoice
         $invoice->delete();
 
         $this->dispatch('success', status: 'Invoice Deleted successfully!');
